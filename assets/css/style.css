@@ -1,0 +1,242 @@
+/* Custom Cyberpunk & Gaming Glow Effects for LUKZI CHEATS */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=Teko:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+    --neon-blue: #00e5ff;
+    --neon-red: #ff2a4b;
+    --neon-amber: #f59e0b;
+    --neon-green: #10b981;
+    --bg-dark: #07090e;
+    --bg-card: #0d121d;
+    --border-glow: rgba(0, 229, 255, 0.25);
+}
+
+* {
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: #e2e8f0;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden;
+    background-image: 
+        radial-gradient(circle at 15% 20%, rgba(0, 229, 255, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 85% 60%, rgba(255, 42, 75, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 50% 90%, rgba(245, 158, 11, 0.04) 0%, transparent 40%);
+}
+
+.font-gaming {
+    font-family: 'Teko', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.font-tech {
+    font-family: 'Rajdhani', sans-serif;
+}
+
+/* Neon Glows */
+.glow-blue {
+    box-shadow: 0 0 25px rgba(0, 229, 255, 0.35);
+}
+
+.glow-red {
+    box-shadow: 0 0 25px rgba(255, 42, 75, 0.35);
+}
+
+.glow-amber {
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+}
+
+.text-glow-blue {
+    text-shadow: 0 0 15px rgba(0, 229, 255, 0.7);
+}
+
+.text-glow-red {
+    text-shadow: 0 0 15px rgba(255, 42, 75, 0.7);
+}
+
+/* Cyber Gradients & Cards */
+.cyber-card {
+    background: linear-gradient(145deg, rgba(16, 23, 38, 0.85) 0%, rgba(9, 13, 22, 0.95) 100%);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.cyber-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(0, 229, 255, 0.6), transparent);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.cyber-card:hover {
+    border-color: rgba(0, 229, 255, 0.4);
+    transform: translateY(-4px);
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 229, 255, 0.15);
+}
+
+.cyber-card:hover::before {
+    opacity: 1;
+}
+
+.cyber-card-red:hover {
+    border-color: rgba(255, 42, 75, 0.5);
+    box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.7), 0 0 20px rgba(255, 42, 75, 0.2);
+}
+
+.cyber-card-red:hover::before {
+    background: linear-gradient(90deg, transparent, rgba(255, 42, 75, 0.8), transparent);
+}
+
+.cyber-card-gold {
+    border-color: rgba(245, 158, 11, 0.4);
+    background: linear-gradient(145deg, rgba(26, 20, 10, 0.85) 0%, rgba(12, 10, 18, 0.95) 100%);
+    box-shadow: 0 0 25px rgba(245, 158, 11, 0.12);
+}
+
+.cyber-card-gold::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #f59e0b, #fbbf24, #f59e0b);
+    opacity: 1;
+}
+
+.cyber-card-gold:hover {
+    border-color: rgba(245, 158, 11, 0.8);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.8), 0 0 30px rgba(245, 158, 11, 0.3);
+}
+
+/* Cyber Badges */
+.cyber-badge {
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+}
+
+/* Cyber Button Clip */
+.btn-cyber {
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+    transition: all 0.2s ease;
+}
+
+.btn-cyber:hover {
+    filter: brightness(1.15);
+    transform: translateY(-2px);
+}
+
+.btn-cyber:active {
+    transform: translateY(1px);
+}
+
+/* Cyber Grid Background overlay */
+.cyber-grid {
+    background-size: 40px 40px;
+    background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+}
+
+/* Pulsing radar animation */
+@keyframes pulse-ring {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.15); opacity: 0.3; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.animate-pulse-ring {
+    animation: pulse-ring 2.5s infinite ease-in-out;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #090d16;
+}
+::-webkit-scrollbar-thumb {
+    background: #1e293b;
+    border-radius: 4px;
+    border: 1px solid rgba(0, 229, 255, 0.2);
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #00e5ff;
+}
+
+/* Modal animation */
+.modal-enter {
+    animation: modalScale 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.94) translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+/* Safe Area for Mobile & iOS Devices (iPhone home indicator & notch) */
+.safe-area-pb {
+    padding-bottom: calc(0.6rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* Touch Action & Tap Ergonomics */
+button, .btn-cyber, a, input, select {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Active Press / Tap feedback */
+.touch-press:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+}
+
+/* Mobile Responsiveness & App-like Bottom Navigation Clearance */
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 76px; /* Essential space so sticky bottom bar doesn't obscure content */
+    }
+
+    /* Prevent iOS Safari auto-zoom on form inputs by forcing min 16px */
+    input[type="text"],
+    input[type="tel"],
+    input[type="password"],
+    input[type="number"],
+    select,
+    textarea {
+        font-size: 16px !important;
+    }
+
+    /* Comfortable modal layout on small phones */
+    #checkout-modal > div,
+    #order-status-modal > div,
+    #product-details-modal > div {
+        max-height: 92vh;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Device Pill Glow */
+.device-pill-glow {
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
+}

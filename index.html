@@ -1,0 +1,1214 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LUKZI CHEATS — Sri Lanka's #1 Free Fire Products & Tools Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        cyber: {
+                            blue: '#00e5ff',
+                            red: '#ff2a4b',
+                            dark: '#07090e',
+                            card: '#0d121d',
+                            border: '#1e293b'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="icon" href="assets/images/lukzi-logo.jpg" type="image/jpeg">
+</head>
+<body class="bg-[#07090e] text-slate-100 min-h-screen flex flex-col antialiased selection:bg-cyan-500 selection:text-black">
+
+    <!-- FLOATING ACTIVE ORDER RECOVERY BANNER (Anti-Refresh Protection) -->
+    <div id="active-order-banner" class="hidden sticky top-0 z-50 bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-700 text-white font-bold px-4 py-2.5 shadow-2xl flex flex-wrap items-center justify-between gap-2 text-xs sm:text-sm">
+        <div class="flex items-center gap-2">
+            <span class="animate-bounce text-base">⚡</span>
+            <span>Active Order Found: <span id="banner-order-id" class="font-mono underline text-cyan-200"></span> (<span id="banner-order-product"></span>)</span>
+            <span id="banner-order-status-badge" class="px-2 py-0.5 rounded-full text-[10px] uppercase font-mono bg-black/60 text-cyan-300 border border-cyan-400/40">Verifying</span>
+        </div>
+        <div class="flex items-center gap-2">
+            <button onclick="openActiveOrderModal()" class="bg-white hover:bg-slate-100 text-slate-950 px-3.5 py-1 rounded-lg text-xs font-bold font-tech tracking-wider uppercase transition shadow">
+                View Order & VIP Links ➔
+            </button>
+            <button onclick="dismissActiveOrderBanner()" class="text-white/80 hover:text-white text-xs px-1.5" title="Dismiss">✕</button>
+        </div>
+    </div>
+
+    <!-- TOP ANNOUNCEMENT BAR & SELLER LIVE STATUS -->
+    <div class="bg-gradient-to-r from-cyan-950/70 via-slate-900 to-red-950/70 border-b border-slate-800/80 px-4 py-2 text-xs">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div class="flex items-center gap-2">
+                <span class="inline-block px-2 py-0.5 rounded text-[10px] font-bold bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
+                    24/7 AUTOMATED
+                </span>
+                <span data-i18n="announcement" class="text-slate-300 hidden md:inline">🔥 Safe Memory Bypass • Real Damage • No Fake Damage • Fast Activation</span>
+            </div>
+
+            <!-- Seller Live Status Badge -->
+            <div id="seller-status-badge" class="flex items-center gap-2 bg-emerald-500/10 border border-emerald-500/30 px-3 py-1 rounded-full text-xs text-emerald-400 font-medium">
+                <span id="seller-status-dot" class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span id="seller-status-text" data-i18n="sellerOnline">Seller Online • විනාඩි 2-5න් Instant Verification</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-[#07090e]/95 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="relative w-12 h-12 rounded-xl overflow-hidden p-[2px] bg-gradient-to-br from-purple-600 via-fuchsia-500 to-cyan-500 shadow-lg shadow-purple-500/30 group-hover:scale-105 transition-transform flex-shrink-0">
+                    <img src="assets/images/lukzi-logo.jpg" alt="LUKZI COMEBACK Logo" class="w-full h-full object-cover rounded-[10px]">
+                </div>
+                <div>
+                    <div class="font-gaming text-2xl sm:text-3xl tracking-wider font-bold uppercase leading-none flex items-center gap-1.5">
+                        <span class="text-white">LUKZI</span> <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-400 to-cyan-400 text-glow-blue">COMEBACK</span>
+                    </div>
+                    <div class="text-[10px] text-slate-400 font-tech tracking-widest uppercase">
+                        DOMINATE YOUR GAME • LK DEVELOPER
+                    </div>
+                </div>
+            </a>
+
+            <!-- Nav Links (Desktop & Laptop/Tablet 1024px+) -->
+            <div class="hidden lg:flex items-center gap-3 xl:gap-5 text-xs font-semibold text-slate-300">
+                <a href="#products" data-i18n="navProducts" class="hover:text-cyan-400 transition">ප්‍රොඩක්ට්ස් (Products)</a>
+                <a href="#how-to-buy" data-i18n="navHowToBuy" class="hover:text-cyan-400 transition">මිලදී ගන්නා හැටි</a>
+                <a href="#payments" data-i18n="navPayments" class="hover:text-cyan-400 transition">ගෙවීම් විස්තර</a>
+                <a href="#support-admins" data-i18n="navAdmins" class="hover:text-cyan-400 transition text-amber-300">තාක්ෂණික සහාය</a>
+                <a href="#streamer-videos" data-i18n="navVideos" class="hover:text-cyan-400 transition text-red-400">වීඩියෝ සාක්ෂි</a>
+                <a href="#tutorials" data-i18n="navTutorials" class="hover:text-cyan-400 transition">Drivers</a>
+                <a href="#feedbacks" data-i18n="navProofs" class="hover:text-cyan-400 transition">සාක්ෂි (Proofs)</a>
+                <a href="#track-order" data-i18n="navTrackOrder" class="hover:text-cyan-400 transition flex items-center gap-1 text-cyan-400">
+                    <span>🔍</span> Track Order
+                </a>
+            </div>
+
+            <!-- Action Buttons & Language Switcher -->
+            <div class="flex items-center gap-2 sm:gap-2.5">
+                <!-- Multi-Language Switcher -->
+                <div class="flex items-center bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs">
+                    <button type="button" onclick="changeLanguage('si')" id="lang-btn-si" class="px-2 py-1 rounded-lg text-cyan-400 bg-cyan-500/20 font-bold transition border border-cyan-500/30" title="සිංහල">🇱🇰 සිංහල</button>
+                    <button type="button" onclick="changeLanguage('en')" id="lang-btn-en" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition border border-transparent" title="English">🇬🇧 EN</button>
+                    <button type="button" onclick="changeLanguage('ta')" id="lang-btn-ta" class="px-2 py-1 rounded-lg text-slate-400 hover:text-white transition border border-transparent" title="தமிழ்">தமிழ்</button>
+                </div>
+
+                <!-- Proof Channel Button (Updated Official Channel) -->
+                <a href="https://whatsapp.com/channel/0029Vb9CqFIATRSfE7H7Il36" target="_blank" class="hidden sm:flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 transition shadow-lg">
+                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                    <span data-i18n="proofChannel">Proof Channel</span>
+                </a>
+
+                <!-- Buy Now Primary Header CTA -->
+                <a href="#products" class="btn-cyber px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold text-white bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 shadow-lg shadow-cyan-500/25 flex items-center gap-1.5">
+                    <span data-i18n="shopNow">මිලදී ගන්න (SHOP NOW)</span>
+                    <span>⚡</span>
+                </a>
+
+                <!-- Tablet & Mobile Hamburger Toggle Button (< 1024px) -->
+                <button type="button" onclick="toggleMobileDrawer()" class="lg:hidden p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white transition flex items-center justify-center" aria-label="Toggle Navigation Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- RESPONSIVE TABLET & MOBILE DRAWER (For Screens < 1024px) -->
+        <div id="mobile-nav-drawer" class="hidden lg:hidden bg-[#07090e]/98 border-t border-slate-800/80 px-4 py-4 space-y-2 text-xs font-semibold backdrop-blur-xl shadow-2xl transition-all">
+            <a href="#products" onclick="toggleMobileDrawer()" class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-200 hover:text-cyan-400 transition">
+                <span>⚡</span> <span>ප්‍රොඩක්ට්ස් (Products & Plans)</span>
+            </a>
+            <a href="#how-to-buy" onclick="toggleMobileDrawer()" class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-200 hover:text-cyan-400 transition">
+                <span>📖</span> <span>මිලදී ගන්නා හැටි (How to Buy)</span>
+            </a>
+            <a href="#payments" onclick="toggleMobileDrawer()" class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-200 hover:text-cyan-400 transition">
+                <span>💳</span> <span>ගෙවීම් විස්තර (Bank & EzCash)</span>
+            </a>
+            <a href="#support-admins" onclick="toggleMobileDrawer()" class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-900 text-amber-300 transition">
+                <span>💬</span> <span>තාක්ෂණික සහාය (Support Admins)</span>
+            </a>
+            <a href="#streamer-videos" onclick="toggleMobileDrawer()" class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-900 text-red-400 transition">
+                <span>🎥</span> <span>වීඩියෝ සාක්ෂි (Gameplay Proofs)</span>
+            </a>
+            <a href="#tutorials" onclick="toggleMobileDrawer()" class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-200 hover:text-cyan-400 transition">
+                <span>🛠️</span> <span>Drivers & Setup Guides</span>
+            </a>
+            <a href="#feedbacks" onclick="toggleMobileDrawer()" class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-900 text-slate-200 hover:text-cyan-400 transition">
+                <span>⭐</span> <span>ගෙවීම් සාක්ෂි (Customer Proofs)</span>
+            </a>
+            <a href="#track-order" onclick="toggleMobileDrawer()" class="flex items-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-900 text-cyan-400 transition">
+                <span>🔍</span> <span>Order එක බලන්න (Track Order)</span>
+            </a>
+            <a href="https://whatsapp.com/channel/0029Vb9CqFIATRSfE7H7Il36" target="_blank" class="flex items-center gap-2 py-2.5 px-3 rounded-xl bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 font-bold transition">
+                <span>📢</span> <span>Official WhatsApp Proofs Channel ➔</span>
+            </a>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative pt-12 pb-20 overflow-hidden cyber-grid border-b border-slate-800/80">
+        <!-- Glow Orbs -->
+        <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/3 right-10 w-72 h-72 bg-red-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <!-- Pill Banner -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 text-xs sm:text-sm font-tech text-cyan-300 shadow-xl mb-6">
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                <span data-i18n="heroPill">ශ්‍රී ලංකාවේ අංක 1 විශ්වාසනීය DIGITAL GAMING STORE — 100% WORKING</span>
+            </div>
+
+            <!-- Main Esports Hero Title -->
+            <div class="max-w-5xl mx-auto mb-6">
+                <div class="inline-block mb-3">
+                    <span class="text-xs sm:text-sm font-tech font-bold uppercase tracking-[0.25em] text-cyan-400 bg-cyan-950/40 border border-cyan-500/30 px-3.5 py-1 rounded-full">
+                        SRI LANKA'S #1 ESPORTS GAMING HUB
+                    </span>
+                </div>
+                <h1 class="font-gaming text-5xl sm:text-7xl lg:text-8xl font-bold uppercase tracking-wider leading-[0.95] text-white">
+                    <span data-i18n="heroTitle1">DOMINATE EVERY</span> <br>
+                    <span data-i18n="heroTitle2" class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-fuchsia-400 to-purple-500 text-glow-blue">
+                        BATTLEFIELD
+                    </span>
+                </h1>
+                <div class="mt-4 flex flex-wrap items-center justify-center gap-2 sm:gap-3 text-xs sm:text-sm font-tech font-bold tracking-wider uppercase">
+                    <span class="px-3 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center gap-1.5">
+                        <span>🛡️</span> 100% MAIN ID SAFE
+                    </span>
+                    <span class="px-3 py-1 rounded-lg bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 flex items-center gap-1.5">
+                        <span>🎯</span> REAL DAMAGE LOCK
+                    </span>
+                    <span class="px-3 py-1 rounded-lg bg-purple-500/10 border border-purple-500/30 text-purple-300 flex items-center gap-1.5">
+                        <span>⚡</span> INSTANT VIP DELIVERY
+                    </span>
+                </div>
+            </div>
+
+            <p data-i18n="heroDesc" class="max-w-3xl mx-auto text-sm sm:text-base lg:text-lg text-slate-300 mb-8 leading-relaxed font-normal">
+                Fake sellers ලාට අහුවෙලා සල්ලි නාස්ති කරගන්න එපා. Free Fire PC & Mobile සඳහා Private Internal Panels, Mouse Bot AI, Mobile ESP with Stream Mode සහ Mobile Optimizer & Sensi මෙතැනින් ලබාගන්න. People's Bank හෝ EzCash හරහා ගෙවා විනාඩි 2-5න් instant verification සමග VIP Access ගන්න!
+            </p>
+
+            <!-- CTA Action Buttons -->
+            <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
+                <a href="#products" class="btn-cyber px-8 py-3.5 rounded-xl font-bold text-sm sm:text-base text-white bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 shadow-xl shadow-cyan-500/25 flex items-center gap-2">
+                    <span data-i18n="heroExploreBtn">සියලු CHEATS & TOOLS බලන්න</span>
+                    <span>➔</span>
+                </a>
+                <a href="#track-order" class="px-6 py-3.5 rounded-xl font-bold text-sm sm:text-base text-slate-200 bg-slate-900/80 hover:bg-slate-800 border border-slate-700 transition flex items-center gap-2">
+                    <span data-i18n="heroTrackBtn">🔍 Order එක Track කරන්න</span>
+                </a>
+            </div>
+
+            <!-- Key Feature Badges Row -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-4xl mx-auto">
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center gap-3">
+                    <div class="text-2xl">🛡️</div>
+                    <div>
+                        <div data-i18n="badgeSafe" class="text-xs font-bold text-white">100% Main ID Safe</div>
+                        <div data-i18n="badgeSafeSub" class="text-[11px] text-slate-400">Zero Ban Risk ක්‍රමවේද</div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center gap-3">
+                    <div class="text-2xl">💥</div>
+                    <div>
+                        <div data-i18n="badgeDamage" class="text-xs font-bold text-white">Real Damage 100%</div>
+                        <div data-i18n="badgeDamageSub" class="text-[11px] text-slate-400">Zero Fake Damage Bugs</div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center gap-3">
+                    <div class="text-2xl">⚡</div>
+                    <div>
+                        <div data-i18n="badgeDelivery" class="text-xs font-bold text-white">විනාඩි 2-5න් Delivery</div>
+                        <div data-i18n="badgeDeliverySub" class="text-[11px] text-slate-400">ඉක්මන් Slip Verification</div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-left flex items-center gap-3">
+                    <div class="text-2xl">👥</div>
+                    <div>
+                        <div data-i18n="badgeCustomers" class="text-xs font-bold text-white">1,000+ Gamers ලා</div>
+                        <div data-i18n="badgeCustomersSub" class="text-[11px] text-slate-400">ක්‍රියාකාරී ලාංකික ක්‍රීඩකයින්</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION: PRODUCTS SHOWCASE -->
+    <section id="products" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <!-- SPECIAL BESTSELLER SPOTLIGHT BANNER: LUKZI MOBILE OPTIMIZER & SENSI -->
+        <div id="spotlight-banner" class="mb-12 p-6 sm:p-8 rounded-3xl cyber-card-gold relative overflow-hidden border-2 border-amber-400/80 shadow-2xl shadow-amber-500/20">
+            <div class="absolute -right-10 -bottom-10 w-80 h-80 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+                <!-- Image & Preview -->
+                <div class="lg:col-span-5 relative">
+                    <div class="relative rounded-2xl overflow-hidden border-2 border-amber-400/60 shadow-2xl group cursor-pointer" onclick="previewImage('assets/images/mobile-optimizer.jpg', 'LUKZI MOBILE OPTIMIZER & SENSI')">
+                        <img src="assets/images/mobile-optimizer.jpg" onerror="this.onerror=null; this.src='assets/images/lukzi-logo.jpg';" alt="Lukzi Mobile Optimizer" class="w-full h-56 sm:h-64 object-cover transform transition-transform duration-500 group-hover:scale-105">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                        <div class="absolute top-3 left-3 bg-amber-500 text-slate-950 text-xs font-bold font-tech px-3 py-1 rounded-lg uppercase tracking-wider shadow-lg flex items-center gap-1.5 animate-pulse">
+                            <span>🔥</span> <span>#1 BESTSELLER IN SRI LANKA</span>
+                        </div>
+                        <div class="absolute bottom-3 left-3 right-3 flex justify-between items-center text-xs text-amber-300 bg-black/60 backdrop-blur-sm px-3 py-1.5 rounded-xl border border-amber-400/30">
+                            <span>All Android Phones (No Root)</span>
+                            <span class="text-white font-bold">🔍 Click to Zoom</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text & Actions -->
+                <div class="lg:col-span-7 flex flex-col justify-between">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold uppercase tracking-wider font-tech mb-3">
+                            <span data-i18n="spotlightBadge">🔥 ලංකාවේ NO.1 වැඩිම ඉල්ලුමක් ඇති PRODUCT එක</span>
+                        </div>
+                        <h3 data-i18n="spotlightTitle" class="font-gaming text-3xl sm:text-4xl lg:text-5xl font-bold uppercase text-white tracking-wide leading-tight">
+                            LUKZI MOBILE OPTIMIZER & SENSI
+                        </h3>
+                        <p data-i18n="spotlightDesc" class="text-xs sm:text-sm text-slate-300 leading-relaxed mt-2 mb-4">
+                            Mobile Free Fire Players ලාට 60 FPS to 90 FPS Ultra Smooth Gameplay, Sensi Calculator, Floating Crosshair සහ Touch Drag Assist ලබාදෙන ශ්‍රී ලංකාවේ ප්‍රමුඛතම All-In-One Optimizer එක. ඔබගේ Main Account එකට 100% Non-Root Safe!
+                        </p>
+
+                        <!-- Key Highlights Grid -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs text-slate-200 mb-6">
+                            <div class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-amber-500/20">
+                                <span class="text-amber-400 text-base">⚡</span>
+                                <span>One-Tap RAM Boost & FPS Stabilizer</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-amber-500/20">
+                                <span class="text-amber-400 text-base">🎯</span>
+                                <span>Sensitivity Calculator & Touch Drag</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-amber-500/20">
+                                <span class="text-amber-400 text-base">🎮</span>
+                                <span>Ultra Low, Smooth & Custom Profiles</span>
+                            </div>
+                            <div class="flex items-center gap-2 p-2.5 rounded-xl bg-slate-900/80 border border-amber-500/20">
+                                <span class="text-amber-400 text-base">🛡️</span>
+                                <span>100% Safe (No Root & Play Protect Safe)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pricing & Buy Now -->
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-4 border-t border-amber-500/30">
+                        <div>
+                            <span class="text-xs text-slate-400 block font-tech uppercase">Available Plans:</span>
+                            <div class="text-xl sm:text-2xl font-bold font-gaming text-amber-400">
+                                Rs. 3,000 <span class="text-xs text-slate-400 font-sans font-normal">(3 Months)</span> / Rs. 5,000 <span class="text-xs text-emerald-400 font-sans font-bold">(Lifetime VIP)</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-2.5 w-full sm:w-auto">
+                            <button onclick="openProductDetails('mobile-optimizer')" class="px-4 py-3 rounded-xl bg-slate-900 border border-amber-500/40 text-amber-300 hover:text-white text-xs font-bold uppercase transition flex-1 sm:flex-initial">
+                                Full Specs
+                            </button>
+                            <button onclick="openCheckoutModal('mobile-optimizer')" class="btn-cyber px-6 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-orange-500 to-amber-600 hover:from-amber-400 text-slate-950 font-bold text-xs sm:text-sm uppercase shadow-xl shadow-amber-500/30 flex items-center justify-center gap-2 flex-1 sm:flex-initial">
+                                <span data-i18n="buyNowBtn">මිලදී ගන්න (BUY NOW)</span>
+                                <span>⚡</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+            <div>
+                <span data-i18n="catalogTag" class="text-xs font-bold uppercase tracking-widest text-cyan-400 font-tech">STORE CATALOG</span>
+                <h2 data-i18n="catalogTitle" class="text-3xl sm:text-4xl font-gaming font-bold uppercase text-white mt-1">
+                    ප්‍රධාන PRODUCTS සහ පැකේජ
+                </h2>
+                <p data-i18n="catalogDesc" class="text-xs sm:text-sm text-slate-400">
+                    ඔබට අවශ්‍ය Platform එක තෝරා මිල ගණන් සහ විශේෂාංග පරීක්ෂා කර මිලදී ගන්න.
+                </p>
+            </div>
+
+            <!-- Filter Tabs -->
+            <div class="flex flex-wrap gap-2">
+                <button data-category="all" data-i18n="tabAll" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-cyan-500/50 bg-cyan-500/20 text-cyan-400 transition">
+                    සියලු Products
+                </button>
+                <button data-category="pc" data-i18n="tabPc" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-800 bg-slate-900/40 text-slate-400 hover:text-white transition">
+                    PC Emulators
+                </button>
+                <button data-category="mobile" data-i18n="tabMobile" class="category-tab px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold border border-slate-800 bg-slate-900/40 text-slate-400 hover:text-white transition">
+                    Mobile (Android / iOS)
+                </button>
+            </div>
+        </div>
+
+        <!-- Products Grid Container (Injected via assets/js/app.js) -->
+        <div id="products-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic Cards -->
+        </div>
+    </section>
+
+    <!-- SECTION: HOW TO BUY & VERIFY WORKFLOW (AUTOMATED ZERO-HASSLE SYSTEM) -->
+    <section id="how-to-buy" class="py-16 bg-slate-950/60 border-t border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span data-i18n="howToBuyTag" class="text-xs font-bold uppercase tracking-widest text-cyan-400 font-tech">කාලය නාස්ති වීමක් නැත</span>
+                <h2 data-i18n="howToBuyTitle" class="text-3xl sm:text-4xl font-gaming font-bold uppercase text-white mt-1">
+                    පියවර 3න් පහසුවෙන්ම මිලදී ගන්නා ආකාරය
+                </h2>
+                <p data-i18n="howToBuyDesc" class="text-xs sm:text-sm text-slate-400">
+                    WhatsApp වල පැය ගණන් මැසේජ් කර කර ඉන්න අවශ්‍ය නැත. සල්ලි දාලා Slip එක දැමූ සැණින් VIP Access එක Screen එකේම විවෘත වේ.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+                <!-- Step 1 -->
+                <div class="cyber-card p-6 rounded-2xl relative">
+                    <div class="w-12 h-12 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center font-gaming text-2xl font-bold text-cyan-400 mb-4">
+                        01
+                    </div>
+                    <h3 data-i18n="step1Title" class="text-lg font-bold font-tech text-white uppercase mb-2">Tool එක තෝරා මුදල් ගෙවන්න</h3>
+                    <p data-i18n="step1Desc" class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                        ඔබට අවශ්‍ය Product එක තෝරා අපගේ <b>People's Bank</b> හෝ <b>EzCash</b> ගිණුමට නියමිත මුදල තැන්පත් කරන්න.
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div class="cyber-card p-6 rounded-2xl relative">
+                    <div class="w-12 h-12 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-gaming text-2xl font-bold text-amber-400 mb-4">
+                        02
+                    </div>
+                    <h3 data-i18n="step2Title" class="text-lg font-bold font-tech text-white uppercase mb-2">Receipt / Slip එක Upload කරන්න</h3>
+                    <p data-i18n="step2Desc" class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                        මිලදී ගන්න (Buy Now) click කර, ගෙවීම් පත්‍රිකාවේ (Slip) ඡායාරූපය හෝ PDF එක upload කර ඔබගේ WhatsApp අංකය ඇතුළත් කරන්න.
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div class="cyber-card cyber-card-red p-6 rounded-2xl relative">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center font-gaming text-2xl font-bold text-emerald-400 mb-4">
+                        03
+                    </div>
+                    <h3 data-i18n="step3Title" class="text-lg font-bold font-tech text-white uppercase mb-2">ක්ෂණික VIP Unlock</h3>
+                    <p data-i18n="step3Desc" class="text-xs sm:text-sm text-slate-400 leading-relaxed">
+                        විනාඩි 2-5ක් ඇතුළත අපගේ Seller විසින් slip එක පරීක්ෂා කර ඔබගේ <b>License Key එක සහ Download Links</b> වෙබ්සයිට් එකෙන්ම ලබාදේ.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: BANK & EZCASH PAYMENT DETAILS (WITH 1-CLICK COPY) -->
+    <section id="payments" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <span data-i18n="bankTag" class="text-xs font-bold uppercase tracking-widest text-amber-400 font-tech">OFFICIAL PAYMENT GATEWAY</span>
+            <h2 data-i18n="bankTitle" class="text-3xl sm:text-4xl font-gaming font-bold uppercase text-white mt-1">
+                BANK TRANSFER & EZCASH DETAILS
+            </h2>
+            <p data-i18n="bankDesc" class="text-xs sm:text-sm text-slate-400">
+                Use the quick copy buttons below to easily paste into your banking apps (Flash, Sampath Vishwa, Genie, etc.) or EzCash app.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <!-- Visual Payment & LankaQR Scan Hub -->
+            <div class="lg:col-span-5 flex flex-col items-center">
+                <div class="w-full max-w-sm cyber-card p-5 rounded-3xl border-2 border-amber-400/60 shadow-2xl shadow-amber-500/20 bg-gradient-to-b from-slate-900 via-slate-950 to-black text-center relative overflow-hidden group">
+                    <!-- Top Badge -->
+                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-[11px] font-bold uppercase tracking-wider font-tech mb-3">
+                        <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+                        <span>🇱🇰 OFFICIAL LANKAQR SCAN TO PAY</span>
+                    </div>
+
+                    <!-- QR Code Canvas with Clean White Background for instant scanner recognition -->
+                    <div class="relative bg-white p-3 rounded-2xl shadow-xl mx-auto w-56 h-56 flex items-center justify-center cursor-pointer group-hover:scale-105 transition-transform duration-300" onclick="previewImage((window.LANKA_QR_IMAGE || 'assets/images/peoples-bank-qr.png'), 'People\'s Bank LankaQR Code (TD Paranahewa)')">
+                        <img id="lanka-qr-main-img" src="assets/images/peoples-bank-qr.png" onerror="if(window.LANKA_QR_IMAGE) { this.src=window.LANKA_QR_IMAGE; }" alt="People's Bank LankaQR Code" class="w-full h-full object-contain">
+                        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center text-xs font-bold text-white transition rounded-2xl backdrop-blur-[2px]">
+                            🔍 Tap to Zoom QR
+                        </div>
+                    </div>
+
+                    <div class="mt-4">
+                        <h4 class="font-tech text-base font-bold text-white uppercase">People's Bank LankaQR</h4>
+                        <p class="text-[11px] text-slate-300 mt-1 leading-snug">
+                            BOC SmartPay, Commercial Q+, FriMi, Flash, Sampath WePay, People's Wave ඇතුළු ඕනෑම Banking App එකකින් Scan කර තත්පර 5න් ගෙවන්න!
+                        </p>
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-center gap-2">
+                        <button type="button" onclick="previewImage((window.LANKA_QR_IMAGE || 'assets/images/peoples-bank-qr.png'), 'People\'s Bank LankaQR Code (TD Paranahewa)')" class="flex-1 py-2 rounded-xl bg-amber-500/15 hover:bg-amber-500/25 border border-amber-500/40 text-amber-300 text-xs font-bold transition flex items-center justify-center gap-1.5">
+                            <span>🔍 Zoom QR</span>
+                        </button>
+                        <a id="lanka-qr-download-link" href="assets/images/peoples-bank-qr.png" download="peoples-bank-lankaqr.png" class="py-2 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition flex items-center gap-1">
+                            <span>⬇️ Download</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Secondary Banner Thumbnail -->
+                <button type="button" onclick="previewImage('assets/images/payment-details.jpg', 'Official Payment Details Banner')" class="mt-3 text-xs text-slate-400 hover:text-amber-400 transition flex items-center gap-1.5">
+                    <span>🖼️ පැරණි Payment Banner එක බලන්න (Click to view)</span>
+                </button>
+            </div>
+
+            <!-- Copyable Bank Cards -->
+            <div class="lg:col-span-7 space-y-4">
+                <!-- People's Bank Card -->
+                <div class="cyber-card p-5 sm:p-6 rounded-2xl border border-amber-500/30 bg-gradient-to-r from-amber-950/20 to-slate-900/90">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-xl">
+                                🏦
+                            </div>
+                            <div>
+                                <h3 class="font-tech text-lg font-bold text-white uppercase">People's Bank (මහජන බැංකුව)</h3>
+                                <p class="text-xs text-amber-400">Bank Transfer / Online CDM / App Deposit</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 text-xs font-semibold">
+                            Primary Bank
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm mb-4">
+                        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-slate-400 text-[11px] block">Account Name (ගිණුමේ නම)</span>
+                                <span class="font-bold text-white">TD Paranahewa</span>
+                            </div>
+                            <button onclick="copyToClipboard('TD Paranahewa', 'Account Name')" class="text-xs text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-2 py-1 rounded transition">
+                                Copy
+                            </button>
+                        </div>
+
+                        <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 flex justify-between items-center">
+                            <div>
+                                <span class="text-slate-400 text-[11px] block">Branch (ශාඛාව)</span>
+                                <span class="font-bold text-white">Colombo</span>
+                            </div>
+                            <button onclick="copyToClipboard('Colombo', 'Branch Name')" class="text-xs text-amber-400 hover:text-amber-300 bg-amber-500/10 hover:bg-amber-500/20 px-2 py-1 rounded transition">
+                                Copy
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Highlighted Account Number Card & Copy Actions -->
+                    <div class="p-4 rounded-xl bg-slate-950 border border-amber-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <span class="text-xs text-slate-400 block font-tech uppercase tracking-wider">Account Number (ගිණුම් අංකය)</span>
+                            <span class="text-xl sm:text-2xl font-mono font-bold text-amber-400 tracking-wider">032200306550753</span>
+                        </div>
+                        <div class="flex flex-wrap items-center gap-2">
+                            <button type="button" onclick="copyToClipboard('032200306550753', 'Account Number Only')" class="px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 hover:border-amber-400 text-amber-300 font-bold text-xs uppercase transition">
+                                Copy No Only
+                            </button>
+                            <button type="button" onclick="copyAllBankDetails()" class="btn-cyber px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-600 hover:from-amber-400 text-slate-950 font-bold text-xs uppercase shadow-lg shadow-amber-500/20 flex items-center justify-center gap-1.5">
+                                <span>📋 Copy All Bank Details (නම, අංකය, ශාඛාව)</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- EzCash Card -->
+                <div class="cyber-card p-5 sm:p-6 rounded-2xl border border-emerald-500/30 bg-gradient-to-r from-emerald-950/20 to-slate-900/90">
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-3">
+                            <div class="w-10 h-10 rounded-xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-xl">
+                                📱
+                            </div>
+                            <div>
+                                <h3 class="font-tech text-lg font-bold text-white uppercase">EzCash (Dialog / Hutch / SLT)</h3>
+                                <p class="text-xs text-emerald-400">Mobile Wallet Merchant / Personal Transfer</p>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold">
+                            Mobile Wallet
+                        </span>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-slate-950 border border-emerald-500/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <span class="text-xs text-slate-400 block font-tech uppercase tracking-wider">EzCash Number (ඊසි කෑෂ් අංකය)</span>
+                            <span class="text-xl sm:text-2xl font-mono font-bold text-emerald-400 tracking-wider">076 622 5968</span>
+                        </div>
+                        <button onclick="copyToClipboard('0766225968', 'EzCash Number')" class="btn-cyber px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 text-slate-950 font-bold text-xs uppercase shadow-lg shadow-emerald-500/20 flex items-center justify-center gap-1.5">
+                            <span>📋 Copy EzCash Number</span>
+                        </button>
+                    </div>
+
+                    <!-- IMPORTANT NOTICE ABOUT EZCASH (MERCHANT WALLET ONLY) -->
+                    <div class="mt-3 p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-left flex items-start gap-3">
+                        <span class="text-amber-400 text-base mt-0.5">⚠️</span>
+                        <div class="text-xs text-slate-300 leading-relaxed">
+                            <span class="text-amber-300 font-bold block mb-1">වැදගත් නිවේදනයයි (EzCash ගෙවීම් සඳහා පමණි):</span>
+                            මෙම EzCash අංකය ගෙවීම් ලබාගැනීමට පමණක් භාවිතා වන Merchant / Business Wallet එකක් වන අතර එය පෞද්ගලික දුරකථන අංකයක් නොවේ. <span class="text-amber-300 font-bold underline">කරුණාකර මෙම අංකයට WhatsApp පණිවිඩ හෝ ඇමතුම් ලබාදීමෙන් වළකින්න.</span> ඔබ මුදල් ගෙවා Slip එක වෙබ් අඩවියට Upload කළ පසු අප විසින් ඔබගේ WhatsApp අංකයට Key එක සහ Files කෙලින්ම එවනු ලැබේ.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: TUTORIALS, DRIVERS & HOW TO APPLY -->
+    <section id="tutorials" class="py-16 bg-slate-950/80 border-t border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 font-tech">STEP BY STEP GUIDANCE</span>
+                <h2 class="text-3xl sm:text-4xl font-gaming font-bold uppercase text-white mt-1">
+                    HOW TO APPLY & ESSENTIAL DRIVERS
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-400">
+                    Everything you need to run your panels and cheats smoothly with 0 error codes and high FPS.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Guide Card 1: PC Visual C++ -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-3xl">⚙️</span>
+                            <span class="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">💻 PC ONLY</span>
+                        </div>
+                        <h3 class="text-base font-bold font-tech text-white uppercase mb-2">Visual C++ All-In-One</h3>
+                        <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                            Required for PC Internal Panel V4 & Mouse Bot AI to prevent missing DLL errors (msvcp140.dll, vcruntime140.dll).
+                        </p>
+                    </div>
+                    <a href="https://www.mediafire.com/file/k55ppfeiomf9fh7/Microsoft_Visual_C%252B%252B.rar/file" target="_blank" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-cyan-400 text-xs font-bold text-center block transition">
+                        Download Visual C++ (MediaFire) ➔
+                    </a>
+                </div>
+
+                <!-- Guide Card 2: PC DirectX -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-3xl">🎮</span>
+                            <span class="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded border border-cyan-500/30">💻 PC ONLY</span>
+                        </div>
+                        <h3 class="text-base font-bold font-tech text-white uppercase mb-2">DirectX Runtimes</h3>
+                        <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                            Fixes emulator graphic crash issues, enables smooth ESP box rendering, and unlocks 90 FPS / 120 FPS in LDPlayer & BlueStacks.
+                        </p>
+                    </div>
+                    <a href="https://www.mediafire.com/file/royyexb73z8qsza/Microsoft_DirectX.rar/file" target="_blank" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-cyan-400 text-xs font-bold text-center block transition">
+                        Download DirectX (MediaFire) ➔
+                    </a>
+                </div>
+
+                <!-- Guide Card 3: Android Setup -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between border-emerald-500/30">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-3xl">🤖</span>
+                            <span class="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/30">📱 ANDROID</span>
+                        </div>
+                        <h3 class="text-base font-bold font-tech text-white uppercase mb-2">Android OBB & Sensi Setup</h3>
+                        <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                            Android 11-15 වල OBB folder permission fix එක සහ Sensi Calibrator එක non-root 100% ආරක්ෂිතව දාගන්නා ආකාරය.
+                        </p>
+                    </div>
+                    <button onclick="showToast('Android 11-15: Use ZArchiver -> Android/obb -> Allow All Files Access. Full video guide provided upon order.', 'info')" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-emerald-400 text-xs font-bold text-center transition">
+                        View Android Setup ➔
+                    </button>
+                </div>
+
+                <!-- Guide Card 4: Apple iOS Setup -->
+                <div class="cyber-card p-6 rounded-2xl flex flex-col justify-between border-slate-700">
+                    <div>
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-3xl">🍏</span>
+                            <span class="text-[10px] font-bold text-slate-300 bg-slate-800 px-2 py-0.5 rounded border border-slate-700">🍏 APPLE iOS</span>
+                        </div>
+                        <h3 class="text-base font-bold font-tech text-white uppercase mb-2">iPhone & iPad Sensi Guide</h3>
+                        <p class="text-xs text-slate-400 mb-4 leading-relaxed">
+                            iOS 14-18 සඳහා 3D Touch Drag Sensi සහ TikTok/YouTube Stream Mode ක්‍රියාත්මක කරගන්නා ආකාරය (No Jailbreak).
+                        </p>
+                    </div>
+                    <button onclick="showToast('iOS: No Jailbreak required for Sensi Calibrator & Stream Mode. Works on iPhone 11 to iPhone 16 Pro Max.', 'info')" class="w-full py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-cyan-300 text-xs font-bold text-center transition">
+                        View iOS Sensi Info ➔
+                    </button>
+                </div>
+            </div>
+
+            <!-- Video Tutorial Section Mockup -->
+            <div class="mt-12 p-6 sm:p-8 rounded-2xl cyber-card border border-cyan-500/30">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <span class="inline-block px-2.5 py-0.5 rounded text-xs font-semibold bg-red-500/20 text-red-400 border border-red-500/40 mb-2">
+                            VIDEO GUIDE
+                        </span>
+                        <h3 class="text-2xl sm:text-3xl font-bold font-tech text-white uppercase mb-3">
+                            WATCH FULL SETUP & ACTIVATION TUTORIAL
+                        </h3>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                            We provide comprehensive Sinhala video guides explaining exactly how to download, extract, enter your license key, and calibrate your sensitivities for Free Fire PC and Mobile.
+                        </p>
+                        <ul class="space-y-2 text-xs sm:text-sm text-slate-300 mb-6">
+                            <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Full video walk-through on emulator calibration</li>
+                            <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Mobile ESP OBB replacement tutorial (Android 11-15)</li>
+                            <li class="flex items-center gap-2"><span class="text-emerald-400">✔</span> Stream Mode activation guide for TikTok streamers</li>
+                        </ul>
+                        <div class="flex flex-wrap items-center gap-3">
+                            <button onclick="openVideoModal('SvshaXGeRVE', 'WATCH FULL SETUP & ACTIVATION TUTORIAL')" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs uppercase transition shadow-lg shadow-red-600/30">
+                                <span>▶ Watch Setup Video</span>
+                            </button>
+                            <a href="https://www.youtube.com/watch?v=SvshaXGeRVE&t=4s" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-200 hover:text-white font-bold text-xs uppercase transition border border-slate-700">
+                                <span>YouTube එකෙන් බලන්න ↗</span>
+                            </a>
+                            <a href="https://whatsapp.com/channel/0029Vb9CqFIATRSfE7H7Il36" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-cyan-600/20 hover:bg-cyan-600/40 text-cyan-300 font-bold text-xs uppercase transition border border-cyan-500/30">
+                                <span>WhatsApp Channel ➔</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Video Box with YouTube Thumbnail & Modal -->
+                    <div onclick="openVideoModal('SvshaXGeRVE', 'WATCH FULL SETUP & ACTIVATION TUTORIAL')" class="relative rounded-xl overflow-hidden border border-red-500/40 bg-slate-950 aspect-video flex items-center justify-center group shadow-2xl cursor-pointer">
+                        <img src="https://img.youtube.com/vi/SvshaXGeRVE/hqdefault.jpg" alt="LUKZI CHEATS Official Setup Demo" class="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors flex flex-col items-center justify-center">
+                            <div class="w-16 h-16 rounded-full bg-red-600 text-white flex items-center justify-center text-2xl shadow-xl shadow-red-600/50 group-hover:scale-110 transition">
+                                ▶
+                            </div>
+                            <span class="text-xs font-tech text-white uppercase mt-3 tracking-wider font-bold drop-shadow">
+                                LUKZI Official Setup & Activation Guide
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: DEDICATED SETUP SUPPORT ADMINS (DEMO SETUP) -->
+    <section id="support-admins" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <span data-i18n="supportTag" class="text-xs font-bold uppercase tracking-widest text-amber-400 font-tech">තාක්ෂණික සහාය</span>
+            <h2 data-i18n="supportTitle" class="text-3xl sm:text-4xl font-gaming font-bold uppercase text-white mt-1">
+                SETUP SUPPORT & ERROR FIXING ADMINS
+            </h2>
+            <p data-i18n="supportDesc" class="text-xs sm:text-sm text-slate-400">
+                Cheat එක හෝ Optimizer එක දාගන්න තේරෙන්නේ නැද්ද? අපේ Support Admins ලා නොමිලේ TeamViewer / AnyDesk හෝ WhatsApp මගින් Setup කර දෙනු ලැබේ.
+            </p>
+        </div>
+
+        <!-- Admins Dynamic Grid (Loaded via assets/js/app.js) -->
+        <div id="support-admins-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <!-- Dynamic Admin Cards -->
+        </div>
+
+        <!-- 100% Free Remote Setup Guarantee Banner -->
+        <div class="p-6 rounded-2xl bg-gradient-to-r from-amber-950/40 via-slate-900 to-cyan-950/40 border border-amber-500/40 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-4 text-left">
+                <div class="w-12 h-12 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-2xl flex-shrink-0">
+                    🤝
+                </div>
+                <div>
+                    <h4 class="font-tech text-base sm:text-lg font-bold text-white uppercase">100% නොමිලේ Remote Setup Guarantee</h4>
+                    <p class="text-xs text-slate-300">ඕනෑම කෙනෙකුට Emulator එකට හෝ Mobile Phone එකට Files දාගන්න නොමිලේ TeamViewer / AnyDesk / WhatsApp මගින් මගපෙන්වනු ලැබේ.</p>
+                </div>
+            </div>
+            <a href="#support-admins-grid" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-500 text-white font-bold text-xs uppercase transition shadow-lg whitespace-nowrap flex items-center gap-1.5">
+                <span>👥 Support Admins බලන්න</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- SECTION: STREAMER GAMEPLAY & VIDEO PROOFS -->
+    <section id="streamer-videos" class="py-16 bg-slate-950/80 border-t border-b border-slate-800/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <span data-i18n="videosTag" class="text-xs font-bold uppercase tracking-widest text-red-400 font-tech">වීඩියෝ සාක්ෂි</span>
+                <h2 data-i18n="videosTitle" class="text-3xl sm:text-4xl font-gaming font-bold uppercase text-white mt-1">
+                    STREAMER GAMEPLAY & VIDEO PROOFS
+                </h2>
+                <p data-i18n="videosDesc" class="text-xs sm:text-sm text-slate-400">
+                    ලංකාවේ ජනප්‍රිය Streamers ලා අපගේ Tools භාවිතා කර Play කරන වීඩියෝ සහ Tutorials නරඹන්න.
+                </p>
+            </div>
+
+            <!-- Videos Dynamic Grid (Loaded via assets/js/app.js) -->
+            <div id="streamer-videos-grid" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Dynamic Video Cards -->
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CUSTOMER PROOFS & FEEDBACKS -->
+    <section id="feedbacks" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto w-full">
+        <div class="text-center max-w-3xl mx-auto mb-12">
+            <span data-i18n="proofsTag" class="text-xs font-bold uppercase tracking-widest text-emerald-400 font-tech">VERIFIED REVIEWS</span>
+            <h2 data-i18n="proofsTitle" class="text-3xl sm:text-4xl font-gaming font-bold uppercase text-white mt-1">
+                CUSTOMER FEEDBACKS & PAYMENT PROOFS
+            </h2>
+            <p data-i18n="proofsDesc" class="text-xs sm:text-sm text-slate-400">
+                Over 1,000+ satisfied Sri Lankan Free Fire gamers trust LUKZI CHEATS every single day.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+            <!-- Review 1 -->
+            <div class="cyber-card p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-9 h-9 rounded-full bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-center font-bold text-xs text-cyan-400">
+                                KD
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Kasun Dhanushka</div>
+                                <div class="text-[10px] text-slate-400">Gampaha • LDPlayer 9</div>
+                            </div>
+                        </div>
+                        <div class="text-amber-400 text-xs">★★★★★</div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                        "Internal Panel V4 eka gatta 1 Month ekak. Zero fake damage! Headshots patta clean wadinawa. Payment karala 3 mins yaddi key eka site ekenma awa."
+                    </p>
+                </div>
+                <div class="text-[10px] text-cyan-400 font-mono mt-2 pt-2 border-t border-slate-800/80">Verified Purchase: INTERNAL PANEL V4 (1 Month)</div>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="cyber-card p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center font-bold text-xs text-emerald-400">
+                                SM
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Shehan Madusanka</div>
+                                <div class="text-[10px] text-slate-400">Kurunegala • Redmi Note 12</div>
+                            </div>
+                        </div>
+                        <div class="text-amber-400 text-xs">★★★★★</div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                        "Mobile ESP with Stream Mode eka super. TikTok live stream ekedi ESP eka screen eke peenne na viewers lata. Safe ekatath hondai."
+                    </p>
+                </div>
+                <div class="text-[10px] text-emerald-400 font-mono mt-2 pt-2 border-t border-slate-800/80">Verified Purchase: MOBILE ESP (2 Months)</div>
+            </div>
+
+            <!-- Review 3 -->
+            <div class="cyber-card p-5 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-9 h-9 rounded-full bg-red-500/20 border border-red-500/40 flex items-center justify-center font-bold text-xs text-red-400">
+                                TR
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Tharindu Raveen</div>
+                                <div class="text-[10px] text-slate-400">Kandy • BlueStacks 5</div>
+                            </div>
+                        </div>
+                        <div class="text-amber-400 text-xs">★★★★★</div>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                        "Mouse Bot AI eka supiri ban, memory inject wenne nati nisa main account eke fearless play karanna puluwan. 100% recommended!"
+                    </p>
+                </div>
+                <div class="text-[10px] text-red-400 font-mono mt-2 pt-2 border-t border-slate-800/80">Verified Purchase: MOUSE BOT PRO (7 Days)</div>
+            </div>
+
+            <!-- Review 4 (Mobile Optimizer & Sensi - Gold Highlight) -->
+            <div class="cyber-card cyber-card-gold p-5 rounded-2xl border border-amber-500/50 bg-gradient-to-b from-amber-950/20 to-slate-900/90 flex flex-col justify-between shadow-xl">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-9 h-9 rounded-full bg-amber-500/20 border border-amber-500/40 flex items-center justify-center font-bold text-xs text-amber-300">
+                                KD
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-amber-300">Kaveesh Dilshan</div>
+                                <div class="text-[10px] text-slate-400">Galle • Samsung A14 (Mobile)</div>
+                            </div>
+                        </div>
+                        <div class="text-amber-400 text-xs">★★★★★</div>
+                    </div>
+                    <p class="text-xs text-slate-200 leading-relaxed mb-3">
+                        "LUKZI Mobile Optimizer eka gatta 3GB RAM phone ekata. Lag eka 100% fix una! Sensi calculator ekai Floating Crosshair ekai nisa drag headshots supiriyata wadinawa. Best product in SL!"
+                    </p>
+                </div>
+                <div class="text-[10px] text-amber-400 font-mono mt-2 pt-2 border-t border-amber-500/30">Verified Purchase: LUKZI MOBILE OPTIMIZER (Lifetime VIP)</div>
+            </div>
+        </div>
+
+        <!-- Callout to Proof Channel -->
+        <div class="p-6 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900 to-cyan-950/40 border border-emerald-500/40 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-2xl">
+            <div class="flex items-center gap-4">
+                <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-500/50 flex items-center justify-center text-3xl">
+                    📢
+                </div>
+                <div>
+                    <h3 class="text-lg sm:text-xl font-bold font-tech text-white uppercase">Want to see 500+ Daily Payment Proofs & Vouchers?</h3>
+                    <p class="text-xs sm:text-sm text-slate-300">Join our official WhatsApp Community Channel to view live slips and customer chats.</p>
+                </div>
+            </div>
+            <a href="https://whatsapp.com/channel/0029Vb9CqFIATRSfE7H7Il36" target="_blank" class="btn-cyber px-6 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs sm:text-sm uppercase shadow-xl shadow-emerald-600/30 whitespace-nowrap flex items-center gap-2">
+                <span>Join Official Proof Channel</span>
+                <span>➔</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- SECTION: ORDER TRACKER (INSTANT CHECK) -->
+    <section id="track-order" class="py-16 bg-slate-950/80 border-t border-b border-slate-800/80">
+        <div class="max-w-3xl mx-auto px-4 text-center">
+            <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 font-tech">LIVE ORDER LOOKUP</span>
+            <h2 data-i18n="trackTitle" class="text-3xl font-gaming font-bold uppercase text-white mt-1 mb-3">
+                TRACK YOUR ORDER STATUS & UNLOCK VIP ACCESS
+            </h2>
+            <p data-i18n="trackDesc" class="text-xs sm:text-sm text-slate-400 mb-6">
+                ඔබගේ Payment Slip එක Submit කළ පසු ඇණවුමේ තත්ත්වය සහ VIP License Key එක මෙතැනින් ස්වයංක්‍රීයව බලාගත හැක.
+            </p>
+
+            <!-- AUTOMATED ACTIVE ORDER TRACKER CARD CONTAINER (Injected via assets/js/app.js) -->
+            <div id="auto-order-tracker-card" class="mb-6">
+                <!-- Dynamically populated on load with active order -->
+            </div>
+
+            <!-- MANUAL LOOKUP FALLBACK (Search another Order ID / WhatsApp) -->
+            <div id="manual-order-search-box" class="transition-all duration-300">
+                <div class="text-xs text-slate-400 mb-2 font-tech">වෙනත් Order ID එකක් හෝ Phone Number එකක් ඇතුළත් කරන්න:</div>
+                <div class="flex flex-col sm:flex-row gap-2 max-w-xl mx-auto">
+                    <input id="track-order-input" type="text" placeholder="Enter Order ID (e.g. LKZ-892410) or Phone" class="flex-1 px-4 py-3 rounded-xl bg-slate-900 border border-slate-700 focus:border-cyan-400 text-sm text-white placeholder-slate-500 outline-none">
+                    <button id="track-order-btn" class="btn-cyber px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-500 font-bold text-sm text-white shadow-lg flex items-center justify-center gap-2">
+                        <span data-i18n="trackBtn">🔍 Track Status</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: FREQUENTLY ASKED QUESTIONS -->
+    <section class="py-16 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto w-full">
+        <div class="text-center mb-10">
+            <span class="text-xs font-bold uppercase tracking-widest text-cyan-400 font-tech">HELP & FAQ</span>
+            <h2 data-i18n="faqTitle" class="text-3xl font-gaming font-bold uppercase text-white mt-1">
+                FREQUENTLY ASKED QUESTIONS
+            </h2>
+        </div>
+
+        <div class="space-y-3">
+            <div class="faq-item cyber-card rounded-xl border border-slate-800 overflow-hidden">
+                <button class="faq-question w-full p-4 text-left font-tech font-bold text-sm sm:text-base text-white flex justify-between items-center">
+                    <span>Is this safe for my main Free Fire account?</span>
+                    <span class="faq-icon text-cyan-400 transition-transform">▼</span>
+                </button>
+                <div class="faq-answer hidden px-4 pb-4 text-xs sm:text-sm text-slate-300 border-t border-slate-800/80 pt-3 leading-relaxed">
+                    Yes! For 100% guarantee on main accounts, we recommend <b>MOUSE BOT PRO (1.7v)</b> as it operates strictly through mouse kinematics and zero memory hooks. For <b>INTERNAL PANEL V4</b>, it comes built-in with anti-blacklist safe bypass, but we always advise following our recommended safe FOV settings.
+                </div>
+            </div>
+
+            <div class="faq-item cyber-card rounded-xl border border-slate-800 overflow-hidden">
+                <button class="faq-question w-full p-4 text-left font-tech font-bold text-sm sm:text-base text-white flex justify-between items-center">
+                    <span>How long does payment slip verification take?</span>
+                    <span class="faq-icon text-cyan-400 transition-transform">▼</span>
+                </button>
+                <div class="faq-answer hidden px-4 pb-4 text-xs sm:text-sm text-slate-300 border-t border-slate-800/80 pt-3 leading-relaxed">
+                    When our seller status is <b>🟢 Online</b>, verification takes just <b>2 to 5 minutes</b>! Once approved, your website screen automatically refreshes and unlocks your VIP Key and direct WhatsApp link.
+                </div>
+            </div>
+
+            <div class="faq-item cyber-card rounded-xl border border-slate-800 overflow-hidden">
+                <button class="faq-question w-full p-4 text-left font-tech font-bold text-sm sm:text-base text-white flex justify-between items-center">
+                    <span>What payment methods are supported?</span>
+                    <span class="faq-icon text-cyan-400 transition-transform">▼</span>
+                </button>
+                <div class="faq-answer hidden px-4 pb-4 text-xs sm:text-sm text-slate-300 border-t border-slate-800/80 pt-3 leading-relaxed">
+                    We accept <b>People's Bank</b> direct transfer (any online bank app or CDM machine) and <b>EzCash</b> transfers.
+                </div>
+            </div>
+
+            <div class="faq-item cyber-card rounded-xl border border-slate-800 overflow-hidden">
+                <button class="faq-question w-full p-4 text-left font-tech font-bold text-sm sm:text-base text-white flex justify-between items-center">
+                    <span>Do I need to root my Android phone for Mobile ESP?</span>
+                    <span class="faq-icon text-cyan-400 transition-transform">▼</span>
+                </button>
+                <div class="faq-answer hidden px-4 pb-4 text-xs sm:text-sm text-slate-300 border-t border-slate-800/80 pt-3 leading-relaxed">
+                    No! Mobile ESP works on both <b>Non-Root</b> (via OBB patch method) and Rooted devices across Android 9 to Android 15. Full Sinhala setup tutorial is provided.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="mt-auto bg-slate-950 border-t border-slate-800/80 py-8 px-4 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2.5">
+                <img src="assets/images/lukzi-logo.jpg" alt="Lukzi Logo" class="w-7 h-7 rounded-lg object-cover border border-purple-500/50 shadow-md">
+                <span class="font-gaming text-lg font-bold text-white tracking-wider">LUKZI COMEBACK</span>
+                <span>• © 2026. Official Sri Lanka Gaming Hub.</span>
+            </div>
+            <div class="flex items-center gap-4 text-slate-400">
+                <a href="#products" class="hover:text-white transition">Products</a>
+                <a href="#how-to-buy" class="hover:text-white transition">How to Buy</a>
+                <a href="#tutorials" class="hover:text-white transition">Setup Guides</a>
+                <a href="#payments" class="hover:text-white transition">Payments</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- 1. CHECKOUT & SLIP UPLOAD MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="cyber-card rounded-2xl max-w-xl w-full p-6 sm:p-7 border border-cyan-500/40 relative shadow-2xl modal-enter my-8">
+            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 p-2 rounded-full transition">
+                ✕
+            </button>
+
+            <!-- Product Header -->
+            <div class="flex items-center gap-4 pb-4 border-b border-slate-800 mb-5">
+                <img id="checkout-product-thumb" src="" class="w-14 h-14 rounded-xl object-cover border border-slate-700">
+                <div>
+                    <h3 id="checkout-product-name" class="font-tech text-lg sm:text-xl font-bold text-white uppercase leading-tight"></h3>
+                    <div id="checkout-product-platform" class="text-xs text-cyan-400 font-tech"></div>
+                </div>
+            </div>
+
+            <form onsubmit="submitOrderSlip(event)" class="space-y-4">
+                <!-- Select Duration Plan -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-2">1. Choose Validity Plan</label>
+                    <div id="plan-selector-container" class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <!-- Injected dynamically -->
+                    </div>
+                </div>
+
+                <!-- Price Summary Box -->
+                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800 flex justify-between items-center">
+                    <span class="text-xs text-slate-400">Total Payable Amount:</span>
+                    <span id="checkout-total-price" class="text-xl font-bold font-gaming text-cyan-400">Rs. 0 LKR</span>
+                </div>
+
+                <!-- Quick Bank Info Card inside checkout -->
+                <div class="p-3.5 rounded-xl bg-amber-950/20 border border-amber-500/30 text-xs space-y-2">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-amber-300">People's Bank: 032200306550753</span>
+                            <span class="text-[10px] text-slate-400 block">TD Paranahewa (Colombo)</span>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <button type="button" onclick="copyToClipboard('032200306550753', 'Account Number')" class="text-[10px] bg-slate-900 border border-slate-700 hover:border-amber-400 text-amber-300 px-2 py-1 rounded transition">Copy No</button>
+                            <button type="button" onclick="copyAllBankDetails()" class="text-[10px] bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 font-bold px-2 py-1 rounded transition">Copy All</button>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center pt-1 border-t border-slate-800">
+                        <span class="font-bold text-emerald-300">EzCash: 076 622 5968</span>
+                        <button type="button" onclick="copyToClipboard('0766225968', 'EzCash Number')" class="text-[10px] bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 px-2 py-1 rounded transition">Copy</button>
+                    </div>
+                    <div class="pt-1.5 border-t border-slate-800/80 flex items-center justify-between">
+                        <span class="text-[11px] font-bold text-amber-300 flex items-center gap-1.5">
+                            <span>🇱🇰</span> LankaQR මගින් Scan කර ගෙවන්න:
+                        </span>
+                        <button type="button" onclick="previewImage((window.LANKA_QR_IMAGE || 'assets/images/peoples-bank-qr.png'), 'People\'s Bank LankaQR (TD Paranahewa)')" class="text-[10px] bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 text-slate-950 font-bold px-2.5 py-1 rounded-lg shadow transition flex items-center gap-1">
+                            <span>📲 Scan QR Code</span>
+                        </button>
+                    </div>
+                    <div class="pt-1 text-[10px] text-amber-300/90 leading-tight">
+                        ⚠️ <b>EzCash මුදල් තැන්පත් කිරීමට පමණි:</b> මෙය Merchant ගිණුමක් බැවින් WhatsApp පණිවිඩ එවන්න එපා. Slip එක Upload කළ පසු අප ඔබව WhatsApp මඟින් සම්බන්ධ කරගනු ඇත.
+                    </div>
+                </div>
+
+                <!-- Customer Details -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">Your Name / Gamer Tag *</label>
+                        <input id="customer-name" type="text" required placeholder="e.g. Kasun FF" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white outline-none focus:border-cyan-400">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-300 mb-1">WhatsApp Number (ශ්‍රී ලංකා) *</label>
+                        <input id="customer-whatsapp" type="tel" inputmode="tel" autocomplete="tel" required maxlength="12" placeholder="07XXXXXXXX" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white outline-none focus:border-cyan-400">
+                        <span class="text-[10px] text-slate-400 mt-0.5 block">වලංගු ශ්‍රී ලාංකික අංකයක් යොදන්න (070/071/072/074/075/076/077/078)</span>
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-slate-300 mb-1">
+                        Bank Reference / Transaction ID / Slip අංකය <span class="text-slate-400 text-[11px] font-normal">(තිබේ නම් පමණක්)</span>
+                    </label>
+                    <input id="customer-ref" type="text" placeholder="e.g. FT241013... හෝ CDM Receipt අංකය" class="w-full px-3 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white outline-none focus:border-cyan-400">
+                    <span class="text-[10px] text-slate-500 mt-0.5 block">💡 බැංකු ඇප් එකේ හෝ තැන්පතු රිසිට්පතේ සඳහන් Reference / Transaction අංකය. (අනිවාර්ය නොවේ)</span>
+                </div>
+
+                <!-- Slip Upload Box (Image or PDF) -->
+                <div>
+                    <label class="block text-xs font-bold text-slate-300 uppercase tracking-wider mb-1">2. Upload Payment Slip (Photo or Bank PDF) *</label>
+                    <div id="slip-dropzone" class="border-2 border-dashed border-slate-700 hover:border-cyan-400 rounded-xl p-4 text-center cursor-pointer transition bg-slate-900/40 relative">
+                        <input id="slip-file-input" type="file" accept="image/*,application/pdf" class="absolute inset-0 opacity-0 cursor-pointer w-full h-full" onchange="handleSlipFile(this.files)">
+                        
+                        <div id="slip-dropzone-content">
+                            <div class="text-2xl mb-1">📸 📄</div>
+                            <div class="text-xs font-bold text-white">Click or Drag & Drop Slip Photo or PDF</div>
+                            <div class="text-[10px] text-slate-400 mt-0.5">Supports JPG, PNG Screenshots & Bank e-Receipt PDFs (Max 10MB)</div>
+                        </div>
+
+                        <!-- Preview after file chosen -->
+                        <div id="slip-preview-container" class="hidden flex items-center justify-between gap-3">
+                            <div class="flex items-center gap-3">
+                                <div id="slip-preview-thumb-box" class="w-12 h-12 rounded-lg border border-cyan-500 overflow-hidden flex items-center justify-center bg-slate-900 flex-shrink-0">
+                                    <img id="slip-preview-img" src="" class="w-full h-full object-cover hidden">
+                                    <span id="slip-preview-pdf-icon" class="text-2xl hidden">📄</span>
+                                </div>
+                                <div class="text-left">
+                                    <div id="slip-preview-filename" class="text-xs font-bold text-emerald-400 truncate max-w-[200px]">Slip Attached!</div>
+                                    <div id="slip-preview-type" class="text-[10px] text-slate-400">Ready for instant verification</div>
+                                </div>
+                            </div>
+                            <button type="button" onclick="removeUploadedSlip()" class="text-xs text-red-400 hover:text-red-300 p-1">
+                                Remove
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="w-full btn-cyber py-3.5 rounded-xl bg-gradient-to-r from-cyan-600 via-blue-600 to-indigo-700 hover:from-cyan-500 font-bold text-sm text-white shadow-xl shadow-cyan-600/30 flex items-center justify-center gap-2 mt-4">
+                    <span>Submit Slip for Instant Verification</span>
+                    <span>➔</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 2. REAL-TIME ORDER VERIFICATION STATUS & WHATSAPP DELIVERY MODAL -->
+    <div id="order-status-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="cyber-card rounded-2xl max-w-lg w-full p-6 sm:p-7 border border-emerald-500/50 relative shadow-2xl modal-enter text-center my-8">
+            <button onclick="closeOrderStatusModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white bg-slate-800/80 p-2 rounded-full transition" title="Close">
+                ✕
+            </button>
+
+            <!-- Order Header -->
+            <div class="mb-5 text-center">
+                <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                    <span>SLIP SUBMITTED & RECEIVED</span>
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-gaming font-bold text-white uppercase mt-2 tracking-wide">
+                    ORDER <span id="order-modal-id" class="text-cyan-400">LKZ-000000</span>
+                </h3>
+                <div id="order-modal-product" class="text-sm text-slate-200 font-semibold mt-1"></div>
+                <div id="order-modal-amount" class="text-base font-bold text-amber-400 font-gaming mt-0.5"></div>
+            </div>
+
+            <!-- SUCCESS NOTIFICATION BODY -->
+            <div class="space-y-4">
+                <div class="w-16 h-16 rounded-full bg-emerald-500/10 border-2 border-emerald-400/80 mx-auto flex items-center justify-center text-3xl shadow-lg shadow-emerald-500/20">
+                    ✅
+                </div>
+
+                <div>
+                    <h4 class="font-tech text-xl font-bold text-white uppercase">ස්තුතියි! ඔබගේ ඇණවුම අප වෙත ලැබුණි</h4>
+                    <p class="text-xs text-slate-300 mt-1.5 leading-relaxed">
+                        ඔබ ඇතුළත් කළ Payment Slip එක අපගේ Seller වෙත සාර්ථකව ලැබී ඇත. එය පරීක්ෂා කර <b class="text-emerald-400">විනාඩි 2 සිට 5ක් ඇතුළත</b> ඔබගේ WhatsApp අංකයට (<span id="order-modal-phone" class="font-mono text-cyan-300 font-bold"></span>) <b class="text-white">VIP License Key</b> එක සහ <b class="text-white">Download Files</b> සෘජුවම එවනු ලැබේ!
+                    </p>
+                </div>
+
+                <!-- Safe Delivery Notice (No seller direct number) -->
+                <div class="p-4 rounded-xl bg-slate-900/90 border border-emerald-500/40 text-left space-y-2">
+                    <div class="flex items-center justify-between text-xs">
+                        <span class="text-slate-400 font-tech uppercase">DELIVERY METHOD:</span>
+                        <span class="text-emerald-400 font-bold flex items-center gap-1">
+                            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            Direct to Your WhatsApp
+                        </span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">
+                        ඔබ විසින් ලබාදුන් <span id="order-modal-phone" class="font-mono text-cyan-300 font-bold"></span> අංකයට අපගේ Seller විසින් විනාඩි 2-5ක් ඇතුළත VIP License Key එක සහ Download Links කෙලින්ම එවනු ඇත.
+                    </p>
+                </div>
+
+                <!-- Guidance & Order ID Box -->
+                <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-[11px] text-slate-400 text-left flex items-start gap-2">
+                    <span class="text-cyan-400 text-sm">💡</span>
+                    <span>ඔබගේ Order ID එක (<span id="order-modal-id-copy" class="text-cyan-300 font-mono font-bold"></span>) සටහන් කර තබා ගන්න. ඕනෑම මොහොතක පිටුවේ පහළ ඇති <b>Track Order</b> කොටසින් ඔබගේ ඇණවුමේ තත්ත්වය නැවත බලාගත හැක.</span>
+                </div>
+
+                <div class="pt-2">
+                    <button onclick="closeOrderStatusModal()" class="w-full btn-cyber py-3 rounded-xl bg-gradient-to-r from-cyan-600 to-blue-700 hover:from-cyan-500 text-white font-bold text-xs sm:text-sm uppercase shadow-lg transition">
+                        ✔ තහවුරුයි, මම WhatsApp පණිවිඩය එනතුරු රැඳී සිටිමි (Done)
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. PRODUCT DETAILS MODAL -->
+    <div id="product-details-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto">
+        <div id="product-details-content" class="cyber-card rounded-2xl max-w-3xl w-full p-6 sm:p-8 border border-slate-700 relative shadow-2xl modal-enter my-8">
+            <!-- Dynamic Content -->
+        </div>
+    </div>
+
+    <!-- 4. IMAGE ZOOM / PREVIEW MODAL -->
+    <div id="image-preview-modal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4" onclick="closeImagePreview()">
+        <div class="relative max-w-4xl w-full flex flex-col items-center" onclick="event.stopPropagation()">
+            <button onclick="closeImagePreview()" class="absolute -top-10 right-0 text-white text-lg bg-slate-800/80 px-3 py-1 rounded-full">✕ Close</button>
+            <img id="image-preview-img" src="" class="max-h-[85vh] rounded-xl border border-slate-700 shadow-2xl object-contain">
+            <div id="image-preview-title" class="text-xs text-slate-400 mt-3 font-tech uppercase tracking-wider"></div>
+        </div>
+    </div>
+
+    <!-- 5. VIDEO LIGHTBOX MODAL -->
+    <div id="video-modal" class="fixed inset-0 z-50 bg-black/95 backdrop-blur-md hidden items-center justify-center p-4 overflow-y-auto" onclick="closeVideoModal()">
+        <div class="cyber-card rounded-2xl max-w-3xl w-full p-4 sm:p-5 border border-cyan-500/50 relative shadow-2xl my-8" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+                <div class="flex items-center gap-2 overflow-hidden">
+                    <span class="text-red-500 text-lg">▶</span>
+                    <h3 id="video-modal-title" class="font-tech text-base sm:text-lg font-bold text-white uppercase truncate"></h3>
+                </div>
+                <button onclick="closeVideoModal()" class="text-slate-400 hover:text-white bg-slate-800/80 p-1.5 rounded-full transition flex-shrink-0" title="Close Video">✕</button>
+            </div>
+            <div class="relative aspect-video rounded-xl overflow-hidden bg-black border border-slate-800 shadow-2xl">
+                <iframe id="video-iframe" class="w-full h-full" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="mt-3 flex items-center justify-between text-xs text-slate-400">
+                <span>Official LUKZI CHEATS Verified Gameplay & Feedback Showcase</span>
+                <span class="text-emerald-400 font-semibold flex items-center gap-1 font-tech">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>100% Real Gameplay</span>
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- MOBILE APP-STYLE STICKY BOTTOM NAVIGATION BAR -->
+    <div id="mobile-bottom-bar" class="fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/90 py-2 px-3 flex md:hidden items-center justify-around shadow-2xl safe-area-pb">
+        <a href="#" class="mobile-nav-btn touch-press flex flex-col items-center justify-center text-cyan-400 text-[10px] font-tech font-semibold">
+            <span class="text-xl mb-0.5">🏠</span>
+            <span data-i18n="bNavHome">Home</span>
+        </a>
+        <a href="#products" class="mobile-nav-btn touch-press flex flex-col items-center justify-center text-slate-400 hover:text-cyan-400 text-[10px] font-tech font-semibold">
+            <span class="text-xl mb-0.5">⚡</span>
+            <span data-i18n="bNavProducts">Products</span>
+        </a>
+        <a href="#payments" class="mobile-nav-btn touch-press flex flex-col items-center justify-center text-slate-400 hover:text-amber-400 text-[10px] font-tech font-semibold">
+            <span class="text-xl mb-0.5">💳</span>
+            <span data-i18n="bNavBank">Bank</span>
+        </a>
+        <a href="#track-order" onclick="setTimeout(() => document.getElementById('track-order-input')?.focus(), 300)" class="mobile-nav-btn touch-press flex flex-col items-center justify-center text-slate-400 hover:text-cyan-400 text-[10px] font-tech font-semibold">
+            <span class="text-xl mb-0.5">🔍</span>
+            <span data-i18n="bNavTrack">Track</span>
+        </a>
+        <a href="#support-admins" class="mobile-nav-btn touch-press flex flex-col items-center justify-center text-emerald-400 text-[10px] font-tech font-semibold">
+            <span class="text-xl mb-0.5">💬</span>
+            <span data-i18n="bNavSupport">Support</span>
+        </a>
+    </div>
+
+    <!-- TOAST NOTIFICATION CONTAINER -->
+    <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- SCRIPT INCLUDES -->
+    <script src="assets/js/qr-data.js"></script>
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
