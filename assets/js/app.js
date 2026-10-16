@@ -164,16 +164,6 @@ const SUPPORT_ADMINS = [
 // Feedback & Proof Videos (Embedded Internal Showcase)
 const STREAMER_VIDEOS = [
     {
-        id: "video-setup",
-        title: "WATCH FULL SETUP & ACTIVATION TUTORIAL",
-        creator: "LUKZI OFFICIAL",
-        badge: "⭐ OFFICIAL TUTORIAL",
-        views: "Must Watch",
-        duration: "Full Guide",
-        youtubeId: "SvshaXGeRVE",
-        description: "Official Step-by-Step Free Fire Setup, Sensitivity Calibration & Activation Guide."
-    },
-    {
         id: "video-1",
         title: "MASTER BROTHERS FREE PROMOTION",
         creator: "Master Brothers",
