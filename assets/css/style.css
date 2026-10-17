@@ -254,3 +254,22 @@ button, .btn-cyber, a, input, select {
 .device-pill-glow {
     box-shadow: 0 0 20px rgba(0, 229, 255, 0.25);
 }
+
+/* Force Hide Netlify Drawer & Watermark Badge */
+netlify-drawer,
+[data-netlify-drawer],
+#netlify-drawer,
+.netlify-badge,
+#netlify-badge,
+div[class*="netlify-drawer"],
+iframe[title*="Netlify"],
+div:has(> netlify-drawer) {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    width: 0 !important;
+    height: 0 !important;
+    position: absolute !important;
+    left: -9999px !important;
+}

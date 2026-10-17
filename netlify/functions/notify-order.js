@@ -1,8 +1,29 @@
 /**
  * Netlify Serverless Function: notify-order.js
- * Automatically sends payment slip notification to seller's phone via Telegram Bot
+ * Automatically sends payment slip notification or Cyber Abuse Trap alerts to seller via Telegram Bot
  * Safe Server-Side execution: Keeps Telegram Bot Token private and secure.
  */
+
+function containsAbusiveContent(text) {
+    if (!text || typeof text !== 'string') return false;
+    const clean = text.toLowerCase()
+        .replace(/[\s\-_.,/\\!@#$%^&*()+=~`'"[\]{}|:;<>?]+/g, '')
+        .replace(/0/g, 'o')
+        .replace(/1/g, 'i')
+        .replace(/3/g, 'e')
+        .replace(/4/g, 'a')
+        .replace(/5/g, 's')
+        .replace(/7/g, 't')
+        .replace(/8/g, 'b');
+
+    const patterns = [
+        /huk/i, /huth/i, /hutt/i, /wesi/i, /wesa/i, /ballo/i, /balla/i, /balu/i,
+        /puka/i, /puk/i, /ponna/i, /ammat/i, /ammag/i, /kari/i, /pakay/i,
+        /pak[aeio]/i, /payy/i, /loll/i, /porn/i, /xvideo/i, /agilla/i,
+        /janiy/i, /janita/i, /wesig/i
+    ];
+    return patterns.some(rx => rx.test(clean));
+}
 
 exports.handler = async (event) => {
     // Enable CORS for frontend requests
@@ -24,7 +45,7 @@ exports.handler = async (event) => {
     try {
         const data = typeof event.body === "string" ? JSON.parse(event.body || "{}") : (event.body || {});
         
-        // Secure server-side credentials (read from Netlify environment variables or fallback safely)
+        // Secure server-side credentials
         const botToken = process.env.TELEGRAM_BOT_TOKEN || "8852411673:AAGdd9z7WcdqjcJe6z5B2vM0QdfPBsL41tM";
         const chatId = process.env.TELEGRAM_CHAT_ID || "-1003914610277";
 
@@ -36,37 +57,82 @@ exports.handler = async (event) => {
             };
         }
 
-        const cleanPhone = (data.customerWhatsApp || "").replace(/\D/g, "");
-        const formattedPhone = cleanPhone.startsWith("0") 
-            ? "94" + cleanPhone.substring(1) 
-            : (cleanPhone.startsWith("94") ? cleanPhone : "94" + cleanPhone);
+        const clientIp = (event.headers && (
+            event.headers["x-nf-client-connection-ip"] || 
+            event.headers["client-ip"] || 
+            event.headers["x-forwarded-for"]
+        )) || data.clientIp || "Unknown";
+
+        const isAbuse = data.isAbuseTrap === true || 
+                        containsAbusiveContent(data.customerName) || 
+                        containsAbusiveContent(data.referenceNo);
+
+        let caption = "";
+        let replyMarkup = null;
+
+        if (isAbuse) {
+            // 🚨 CYBER ABUSE / TROLL TRAP ALERT
+            const incidentId = data.incidentId || `CCID-LK-${Math.floor(100000 + Math.random() * 900000)}`;
+            caption = 
+                `🚨 *CYBER CRIME & ABUSE TRAP TRIGGERED!*\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `⚠️ *Incident Case:* \`${incidentId}\`\n` +
+                `🌐 *Offender IP:* \`${clientIp}\`\n` +
+                `📍 *ISP / Location:* ${data.geoInfo || 'Sri Lanka'}\n` +
+                `📱 *Entered Phone:* \`${data.customerWhatsApp || 'N/A'}\`\n` +
+                `👤 *Offensive Input (Name):* ${data.customerName || 'N/A'}\n` +
+                `📑 *Offensive Input (Ref):* ${data.referenceNo || 'N/A'}\n` +
+                `🖥️ *Device:* ${data.deviceInfo || 'Browser'}\n` +
+                `⏰ *Time (SL):* ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `🛡️ *Status:* Trap Warning displayed to offender. Device blocked from store!`;
+
+            replyMarkup = JSON.stringify({
+                inline_keyboard: [
+                    [
+                        {
+                            text: "🔍 Lookup IP Address",
+                            url: `https://whatismyipaddress.com/ip/${clientIp}`
+                        }
+                    ]
+                ]
+            });
+        } else {
+            // ✅ LEGITIMATE CUSTOMER ORDER
+            const cleanPhone = (data.customerWhatsApp || "").replace(/\D/g, "");
+            const formattedPhone = cleanPhone.startsWith("0") 
+                ? "94" + cleanPhone.substring(1) 
+                : (cleanPhone.startsWith("94") ? cleanPhone : "94" + cleanPhone);
+
+            const isPdf = data.slipType === "pdf" || (data.slipName && data.slipName.toLowerCase().endsWith(".pdf"));
+
+            caption = 
+                `🔥 *NEW LUKZI ORDER RECEIVED!*\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `🆔 *Order ID:* \`${data.orderId || 'N/A'}\`\n` +
+                `👤 *Customer:* ${data.customerName || 'Anonymous'}\n` +
+                `📱 *WhatsApp:* \`${data.customerWhatsApp || 'N/A'}\`\n` +
+                `📦 *Product:* ${data.productName || 'Tool'}\n` +
+                `⏳ *Plan:* ${data.planDuration || 'Standard'}\n` +
+                `💰 *Amount:* Rs. ${Number(data.amount || 0).toLocaleString()} LKR\n` +
+                `📑 *Ref / Trx:* ${data.referenceNo || 'N/A'}\n` +
+                `📄 *Slip File:* ${isPdf ? 'Bank e-Receipt (PDF)' : 'Payment Screenshot (Image)'}\n` +
+                `━━━━━━━━━━━━━━━━━━━━━━\n` +
+                `👇 *Tap below to open direct WhatsApp chat:*`;
+
+            replyMarkup = JSON.stringify({
+                inline_keyboard: [
+                    [
+                        {
+                            text: "💬 Chat Directly with Buyer (WhatsApp)",
+                            url: `https://wa.me/${formattedPhone}`
+                        }
+                    ]
+                ]
+            });
+        }
 
         const isPdf = data.slipType === "pdf" || (data.slipName && data.slipName.toLowerCase().endsWith(".pdf"));
-
-        const caption = 
-            `🔥 *NEW LUKZI ORDER RECEIVED!*\n` +
-            `━━━━━━━━━━━━━━━━━━━━━━\n` +
-            `🆔 *Order ID:* \`${data.orderId || 'N/A'}\`\n` +
-            `👤 *Customer:* ${data.customerName || 'Anonymous'}\n` +
-            `📱 *WhatsApp:* \`${data.customerWhatsApp || 'N/A'}\`\n` +
-            `📦 *Product:* ${data.productName || 'Tool'}\n` +
-            `⏳ *Plan:* ${data.planDuration || 'Standard'}\n` +
-            `💰 *Amount:* Rs. ${Number(data.amount || 0).toLocaleString()} LKR\n` +
-            `📑 *Ref / Trx:* ${data.referenceNo || 'N/A'}\n` +
-            `📄 *Slip File:* ${isPdf ? 'Bank e-Receipt (PDF)' : 'Payment Screenshot (Image)'}\n` +
-            `━━━━━━━━━━━━━━━━━━━━━━\n` +
-            `👇 *Tap below to open direct WhatsApp chat:*`;
-
-        const replyMarkup = JSON.stringify({
-            inline_keyboard: [
-                [
-                    {
-                        text: "💬 Chat Directly with Buyer (WhatsApp)",
-                        url: `https://wa.me/${formattedPhone}`
-                    }
-                ]
-            ]
-        });
 
         // Convert Base64 dataURI into binary Blob
         let blob = null;
@@ -88,7 +154,7 @@ exports.handler = async (event) => {
             formData.append("chat_id", chatId);
             formData.append("caption", caption);
             formData.append("parse_mode", "Markdown");
-            formData.append("reply_markup", replyMarkup);
+            if (replyMarkup) formData.append("reply_markup", replyMarkup);
 
             let endpoint;
             if (isPdf) {
@@ -96,7 +162,7 @@ exports.handler = async (event) => {
                 formData.append("document", blob, data.slipName && data.slipName.endsWith(".pdf") ? data.slipName : `slip_${data.orderId || 'file'}.pdf`);
             } else {
                 endpoint = `https://api.telegram.org/bot${botToken}/sendPhoto`;
-                formData.append("photo", blob, `receipt_${data.orderId || 'photo'}.jpg`);
+                formData.append("photo", blob, `receipt_${data.orderId || (isAbuse ? 'abuse_evidence' : 'photo')}.jpg`);
             }
 
             resTelegram = await fetch(endpoint, {
@@ -112,7 +178,7 @@ exports.handler = async (event) => {
                     chat_id: chatId,
                     text: caption,
                     parse_mode: "Markdown",
-                    reply_markup: JSON.parse(replyMarkup)
+                    reply_markup: replyMarkup ? JSON.parse(replyMarkup) : undefined
                 })
             });
         }
@@ -121,7 +187,11 @@ exports.handler = async (event) => {
         return {
             statusCode: 200,
             headers,
-            body: JSON.stringify({ success: telegramJson.ok, message: "Order dispatched to seller successfully" })
+            body: JSON.stringify({ 
+                success: telegramJson.ok, 
+                isAbuse: isAbuse,
+                message: isAbuse ? "Security incident logged." : "Order dispatched to seller successfully" 
+            })
         };
     } catch (error) {
         console.error("notify-order handler error:", error);

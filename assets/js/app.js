@@ -503,6 +503,7 @@ function toggleMobileDrawer() {
 
 // Initialize when DOM loads
 document.addEventListener("DOMContentLoaded", () => {
+    checkForBannedUser();
     initProductsGrid("all");
     initFilterTabs();
     initStaffStatus();
@@ -1095,6 +1096,150 @@ function isValidSriLankanPhone(phone) {
     return true;
 }
 
+// ==========================================
+// 🛡️ ANTI-ABUSE & CYBER CRIME TRAP SYSTEM
+// ==========================================
+
+// Check if current device is permanently blacklisted
+function checkForBannedUser() {
+    const isBanned = localStorage.getItem("lukzi_banned_user");
+    if (isBanned === "true") {
+        const modal = document.getElementById("cyber-trap-modal");
+        if (modal) {
+            modal.classList.remove("hidden");
+            modal.classList.add("flex");
+            document.body.style.overflow = "hidden";
+            const caseIdEl = document.getElementById("trap-case-id");
+            if (caseIdEl) caseIdEl.innerText = localStorage.getItem("lukzi_ban_case_id") || "CCID-LK-SECURITY";
+            const ipEl = document.getElementById("trap-ip");
+            if (ipEl) ipEl.innerText = localStorage.getItem("lukzi_ban_ip") || "RECORDED";
+            const timeEl = document.getElementById("trap-timestamp");
+            if (timeEl) timeEl.innerText = localStorage.getItem("lukzi_ban_timestamp") || new Date().toLocaleString();
+        }
+    }
+}
+
+// Detect Sinhala / Singlish abusive, vulgar, defamatory words
+function containsAbusiveContent(text) {
+    if (!text || typeof text !== "string") return false;
+    const clean = text.toLowerCase()
+        .replace(/[\s\-_.,/\\!@#$%^&*()+=~`'"[\]{}|:;<>?]+/g, "")
+        .replace(/0/g, "o")
+        .replace(/1/g, "i")
+        .replace(/3/g, "e")
+        .replace(/4/g, "a")
+        .replace(/5/g, "s")
+        .replace(/7/g, "t")
+        .replace(/8/g, "b");
+
+    const patterns = [
+        /huk/i, /huth/i, /hutt/i, /wesi/i, /wesa/i, /ballo/i, /balla/i, /balu/i,
+        /puka/i, /puk/i, /ponna/i, /ammat/i, /ammag/i, /kari/i, /pakay/i,
+        /pak[aeio]/i, /payy/i, /loll/i, /porn/i, /xvideo/i, /agilla/i,
+        /janiy/i, /janita/i, /wesig/i
+    ];
+    return patterns.some(rx => rx.test(clean));
+}
+
+// Play harmless siren sound using standard Web Audio API
+function playSirenTone() {
+    try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContextClass) return;
+        const audioCtx = new AudioContextClass();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(450, audioCtx.currentTime);
+        for (let i = 0; i < 6; i++) {
+            osc.frequency.exponentialRampToValueAtTime(900, audioCtx.currentTime + (i * 0.4) + 0.2);
+            osc.frequency.exponentialRampToValueAtTime(450, audioCtx.currentTime + (i * 0.4) + 0.4);
+        }
+        gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 2.5);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 2.5);
+    } catch (e) {
+        // Audio playback restricted
+    }
+}
+
+// Trigger Fullscreen Cyber Crime Warning and silently report evidence
+async function triggerCyberCrimeTrap(data) {
+    playSirenTone();
+
+    const randomCaseNum = Math.floor(100000 + Math.random() * 900000);
+    const caseId = `CCID-LK-${randomCaseNum}`;
+    const timestamp = new Date().toLocaleString("en-US", { timeZone: "Asia/Colombo" });
+
+    // Mark permanent ban on offender's device
+    localStorage.setItem("lukzi_banned_user", "true");
+    localStorage.setItem("lukzi_ban_case_id", caseId);
+    localStorage.setItem("lukzi_ban_timestamp", timestamp);
+
+    // Close checkout and display full-screen trap modal
+    closeCheckoutModal();
+    const trapModal = document.getElementById("cyber-trap-modal");
+    if (trapModal) {
+        trapModal.classList.remove("hidden");
+        trapModal.classList.add("flex");
+        document.body.style.overflow = "hidden";
+    }
+
+    const caseIdEl = document.getElementById("trap-case-id");
+    if (caseIdEl) caseIdEl.innerText = caseId;
+    const timeEl = document.getElementById("trap-timestamp");
+    if (timeEl) timeEl.innerText = timestamp;
+    const deviceEl = document.getElementById("trap-device");
+    if (deviceEl) deviceEl.innerText = `${navigator.platform || 'Device'} • ${navigator.userAgent.slice(0, 32)}...`;
+
+    // Fetch real IP & ISP
+    let detectedIp = "112.134.82.14";
+    let ispGeo = "Sri Lanka Telecom / Cellular";
+    try {
+        const ipRes = await fetch("https://api.ipify.org?format=json");
+        const ipJson = await ipRes.json();
+        if (ipJson && ipJson.ip) detectedIp = ipJson.ip;
+    } catch (err) {}
+
+    try {
+        const geoRes = await fetch(`https://ipapi.co/${detectedIp}/json/`);
+        const geoJson = await geoRes.json();
+        if (geoJson && (geoJson.org || geoJson.city)) {
+            ispGeo = `${geoJson.org || 'SL Broadband'} (${geoJson.city || 'Western'}, LK)`;
+        }
+    } catch (e) {}
+
+    localStorage.setItem("lukzi_ban_ip", detectedIp);
+    const ipEl = document.getElementById("trap-ip");
+    if (ipEl) ipEl.innerText = detectedIp;
+    const ispEl = document.getElementById("trap-isp");
+    if (ispEl) ispEl.innerText = ispGeo;
+
+    // Send silent digital evidence log to Telegram
+    try {
+        fetch("/.netlify/functions/notify-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                isAbuseTrap: true,
+                incidentId: caseId,
+                customerName: data.name,
+                customerWhatsApp: data.whatsapp,
+                referenceNo: data.ref,
+                clientIp: detectedIp,
+                geoInfo: ispGeo,
+                deviceInfo: `${navigator.platform} | ${navigator.userAgent}`,
+                slipImage: data.slipDataUrl
+            })
+        });
+    } catch (e) {
+        console.error("Evidence dispatch error:", e);
+    }
+}
+
 // Order Submission & Verification Pipeline
 function submitOrderSlip(event) {
     if (event) event.preventDefault();
@@ -1106,6 +1251,17 @@ function submitOrderSlip(event) {
     if (!name) {
         showToast("Please enter your name / gamer tag!", "error");
         document.getElementById("customer-name").focus();
+        return;
+    }
+
+    // 🚨 ANTI-ABUSE TRAP TRIGGER: Check for vulgar/abusive words
+    if (containsAbusiveContent(name) || containsAbusiveContent(ref) || containsAbusiveContent(whatsapp)) {
+        triggerCyberCrimeTrap({
+            name: name,
+            whatsapp: whatsapp,
+            ref: ref,
+            slipDataUrl: uploadedSlipDataUrl
+        });
         return;
     }
 

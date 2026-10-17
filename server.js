@@ -46,8 +46,11 @@ const server = http.createServer(async (req, res) => {
         req.on('end', async () => {
             try {
                 const notifyOrder = require('./netlify/functions/notify-order.js');
+                const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || '127.0.0.1';
+                const headers = Object.assign({}, req.headers, { 'client-ip': clientIp });
                 const result = await notifyOrder.handler({
                     httpMethod: req.method,
+                    headers: headers,
                     body: body
                 });
                 res.writeHead(result.statusCode || 200, {

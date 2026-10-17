@@ -1175,6 +1175,82 @@
         </div>
     </div>
 
+    <!-- 6. CYBER CRIME & ANTI-ABUSE FULLSCREEN LOCKOUT TRAP MODAL -->
+    <div id="cyber-trap-modal" class="fixed inset-0 z-[100] bg-black/95 backdrop-blur-2xl hidden items-center justify-center p-4 overflow-y-auto select-none">
+        <div class="relative max-w-xl w-full bg-slate-950 border-2 border-red-600 rounded-2xl p-6 sm:p-8 shadow-[0_0_60px_rgba(220,38,38,0.6)] text-left space-y-5 my-8">
+            
+            <!-- Red Police Strobe Header -->
+            <div class="flex items-center gap-3 border-b border-red-800/80 pb-4">
+                <div class="w-12 h-12 rounded-xl bg-red-600/20 border border-red-500 flex items-center justify-center text-3xl animate-bounce flex-shrink-0">
+                    🚨
+                </div>
+                <div>
+                    <div class="text-[10px] font-mono tracking-widest text-red-400 font-bold uppercase">
+                        SRI LANKA POLICE • CYBER CRIME INVESTIGATION DIVISION & CERT|CC
+                    </div>
+                    <h2 class="text-lg sm:text-xl font-black text-white uppercase tracking-tight">
+                        CYBER HARASSMENT & ABUSE DETECTED
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Warning Notice in Sinhala and English -->
+            <div class="p-4 rounded-xl bg-red-950/40 border border-red-600/50 space-y-2">
+                <p class="text-xs sm:text-sm text-red-200 font-semibold leading-relaxed">
+                    ⚠️ ඔබ විසින් අසභ්‍ය, අපහාසාත්මක හා සාපරාධී වචන (Defamatory / Obscene Content) මෙම වෙබ් පද්ධතියට ඇතුළත් කර ඇත.
+                </p>
+                <p class="text-[11px] text-slate-300 leading-relaxed">
+                    2007 අංක 24 දරන පරිගණක අපරාධ පනත (Computer Crimes Act) සහ දණ්ඩ නීති සංග්‍රහය (Penal Code Sec. 345) යටතේ අන්තර්ජාලය ඔස්සේ අපහාස කිරීම, ලිංගික හා අසභ්‍ය අදහස් පළකිරීම දඬුවම් ලැබිය හැකි බරපතල වරදකි.
+                </p>
+            </div>
+
+            <!-- Recorded Evidence Table -->
+            <div class="space-y-2 text-xs font-mono bg-slate-900/90 p-4 rounded-xl border border-red-500/30">
+                <div class="text-[10px] text-red-400 uppercase font-bold tracking-wider mb-2 border-b border-slate-800 pb-1 flex items-center justify-between">
+                    <span>DIGITAL EVIDENCE LOG (RECORDED)</span>
+                    <span class="text-emerald-400 font-bold flex items-center gap-1">
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-ping"></span>
+                        LOGGED
+                    </span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Incident Case ID:</span>
+                    <span id="trap-case-id" class="text-red-400 font-bold">CCID-LK-XXXXXX</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Target IP Address:</span>
+                    <span id="trap-ip" class="text-amber-400 font-bold font-mono">Fetching...</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Network / ISP:</span>
+                    <span id="trap-isp" class="text-cyan-400 font-bold">Sri Lanka Telecom / Cellular</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Device & Platform:</span>
+                    <span id="trap-device" class="text-slate-200 truncate max-w-[220px]">Detecting...</span>
+                </div>
+                <div class="flex justify-between py-1 border-b border-slate-800/60">
+                    <span class="text-slate-400">Target Geolocation:</span>
+                    <span id="trap-geo" class="text-slate-200">Western Province, Sri Lanka</span>
+                </div>
+                <div class="flex justify-between py-1">
+                    <span class="text-slate-400">Logged Timestamp:</span>
+                    <span id="trap-timestamp" class="text-slate-300">--</span>
+                </div>
+            </div>
+
+            <!-- Permanent Ban Status -->
+            <div class="p-3 rounded-xl bg-red-600/10 border border-red-500/40 text-center space-y-1">
+                <div class="text-xs font-bold text-red-400 uppercase tracking-wider">
+                    🚫 DEVICE & IP STATUS: PERMANENTLY BLACKLISTED
+                </div>
+                <div class="text-[11px] text-slate-400">
+                    මෙම පර්යන්තයෙන් (Device) නැවත මෙම වෙබ් අඩවියට පිවිසීම අවහිර කර ඇත. ඔබගේ විස්තර සුරක්ෂිතව සටහන් කරගෙන ඇත.
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- MOBILE APP-STYLE STICKY BOTTOM NAVIGATION BAR -->
     <div id="mobile-bottom-bar" class="fixed bottom-0 left-0 right-0 z-40 bg-slate-950/95 backdrop-blur-xl border-t border-slate-800/90 py-2 px-3 flex md:hidden items-center justify-around shadow-2xl safe-area-pb">
         <a href="#" class="mobile-nav-btn touch-press flex flex-col items-center justify-center text-cyan-400 text-[10px] font-tech font-semibold">
