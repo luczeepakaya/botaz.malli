@@ -17,10 +17,12 @@ function containsAbusiveContent(text) {
         .replace(/8/g, 'b');
 
     const patterns = [
-        /huk/i, /huth/i, /hutt/i, /wesi/i, /wesa/i, /ballo/i, /balla/i, /balu/i,
-        /puka/i, /puk/i, /ponna/i, /ammat/i, /ammag/i, /kari/i, /pakay/i,
-        /pak[aeio]/i, /payy/i, /loll/i, /porn/i, /xvideo/i, /agilla/i,
-        /janiy/i, /janita/i, /wesig/i
+        /huk/i, /huth/i, /hutt/i, /wesi/i, /wesa/i, /vesi/i, /vesa/i,
+        /ballo/i, /balla/i, /balu/i, /puka/i, /puk/i, /ponna/i, /ponz/i,
+        /ammat/i, /ammag/i, /kari/i, /pakay/i, /pak[aeio]/i, /payy/i,
+        /loll/i, /porn/i, /xvideo/i, /agilla/i, /janiy/i, /janita/i, /wesig/i,
+        /fuck/i, /bitch/i, /dick/i, /pussy/i, /asshole/i,
+        /හුක/, /හුත්ත/, /වේසි/, /බල්ල/, /පුක/, /පොන්න/, /අම්ම/, /කැරි/, /පක/, /පයිය/
     ];
     return patterns.some(rx => rx.test(clean));
 }
@@ -67,12 +69,13 @@ exports.handler = async (event) => {
                         containsAbusiveContent(data.customerName) || 
                         containsAbusiveContent(data.referenceNo);
 
+        const incidentId = data.incidentId || `CCID-LK-${Math.floor(100000 + Math.random() * 900000)}`;
+
         let caption = "";
         let replyMarkup = null;
 
         if (isAbuse) {
             // 🚨 CYBER ABUSE / TROLL TRAP ALERT
-            const incidentId = data.incidentId || `CCID-LK-${Math.floor(100000 + Math.random() * 900000)}`;
             caption = 
                 `🚨 *CYBER CRIME & ABUSE TRAP TRIGGERED!*\n` +
                 `━━━━━━━━━━━━━━━━━━━━━━\n` +
@@ -85,7 +88,7 @@ exports.handler = async (event) => {
                 `🖥️ *Device:* ${data.deviceInfo || 'Browser'}\n` +
                 `⏰ *Time (SL):* ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}\n` +
                 `━━━━━━━━━━━━━━━━━━━━━━\n` +
-                `🛡️ *Status:* Trap Warning displayed to offender. Device blocked from store!`;
+                `🛡️ *Status:* Trap Warning displayed. Nearest Police Station map (police.lk) opened!`;
 
             replyMarkup = JSON.stringify({
                 inline_keyboard: [
@@ -93,6 +96,10 @@ exports.handler = async (event) => {
                         {
                             text: "🔍 Lookup IP Address",
                             url: `https://whatismyipaddress.com/ip/${clientIp}`
+                        },
+                        {
+                            text: "🚓 Police Stations Map",
+                            url: "https://police.lk/police-stations-map/"
                         }
                     ]
                 ]
@@ -190,6 +197,8 @@ exports.handler = async (event) => {
             body: JSON.stringify({ 
                 success: telegramJson.ok, 
                 isAbuse: isAbuse,
+                incidentId: incidentId,
+                clientIp: clientIp,
                 message: isAbuse ? "Security incident logged." : "Order dispatched to seller successfully" 
             })
         };

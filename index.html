@@ -1248,6 +1248,21 @@
                     මෙම පර්යන්තයෙන් (Device) නැවත මෙම වෙබ් අඩවියට පිවිසීම අවහිර කර ඇත. ඔබගේ විස්තර සුරක්ෂිතව සටහන් කරගෙන ඇත.
                 </div>
             </div>
+
+            <!-- Police Station Map Auto-Open Box -->
+            <div class="p-4 rounded-xl bg-gradient-to-r from-red-950/80 via-slate-900 to-red-950/80 border border-red-500/60 space-y-3 text-center">
+                <div class="flex items-center justify-center gap-2 text-yellow-400 font-tech text-xs uppercase font-bold tracking-wider">
+                    <span class="w-2.5 h-2.5 rounded-full bg-yellow-400 animate-ping"></span>
+                    <span>AUTOMATIC POLICE ACTION IN PROGRESS</span>
+                </div>
+                <p class="text-xs text-slate-200 leading-relaxed">
+                    ඔබගේ ප්‍රදේශයේ ආසන්නතම පොලිස් ස්ථානය සෙවීමේ නිල සිතියම තත්පර <span id="trap-countdown" class="font-mono text-xl font-black text-yellow-300">5</span> කින් ස්වයංක්‍රීයව විවෘත වේ...
+                </p>
+                <a id="trap-police-link" href="https://police.lk/police-stations-map/" target="_blank" class="w-full py-3.5 px-4 rounded-xl bg-gradient-to-r from-red-600 via-rose-600 to-red-700 hover:from-red-500 text-white font-bold text-xs sm:text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-xl shadow-red-600/40 animate-pulse transition">
+                    <span>🚓 VISIT NEAREST POLICE STATION MAP (POLICE.LK)</span>
+                    <span>➔</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -1278,8 +1293,8 @@
     <!-- TOAST NOTIFICATION CONTAINER -->
     <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-    <!-- SCRIPT INCLUDES -->
-    <script src="assets/js/qr-data.js"></script>
-    <script src="assets/js/app.js"></script>
+    <!-- SCRIPT INCLUDES (With Cache Buster v=3.1.0) -->
+    <script src="assets/js/qr-data.js?v=3.1.0"></script>
+    <script src="assets/js/app.js?v=3.1.0"></script>
 </body>
 </html>

@@ -1115,6 +1115,11 @@ function checkForBannedUser() {
             if (ipEl) ipEl.innerText = localStorage.getItem("lukzi_ban_ip") || "RECORDED";
             const timeEl = document.getElementById("trap-timestamp");
             if (timeEl) timeEl.innerText = localStorage.getItem("lukzi_ban_timestamp") || new Date().toLocaleString();
+
+            // Redirect banned offender to Police Stations Map
+            setTimeout(() => {
+                window.location.href = "https://police.lk/police-stations-map/";
+            }, 3000);
         }
     }
 }
@@ -1133,10 +1138,12 @@ function containsAbusiveContent(text) {
         .replace(/8/g, "b");
 
     const patterns = [
-        /huk/i, /huth/i, /hutt/i, /wesi/i, /wesa/i, /ballo/i, /balla/i, /balu/i,
-        /puka/i, /puk/i, /ponna/i, /ammat/i, /ammag/i, /kari/i, /pakay/i,
-        /pak[aeio]/i, /payy/i, /loll/i, /porn/i, /xvideo/i, /agilla/i,
-        /janiy/i, /janita/i, /wesig/i
+        /huk/i, /huth/i, /hutt/i, /wesi/i, /wesa/i, /vesi/i, /vesa/i,
+        /ballo/i, /balla/i, /balu/i, /puka/i, /puk/i, /ponna/i, /ponz/i,
+        /ammat/i, /ammag/i, /kari/i, /pakay/i, /pak[aeio]/i, /payy/i,
+        /loll/i, /porn/i, /xvideo/i, /agilla/i, /janiy/i, /janita/i, /wesig/i,
+        /fuck/i, /bitch/i, /dick/i, /pussy/i, /asshole/i,
+        /හුක/, /හුත්ත/, /වේසි/, /බල්ල/, /පුක/, /පොන්න/, /අම්ම/, /කැරි/, /පක/, /පයිය/
     ];
     return patterns.some(rx => rx.test(clean));
 }
@@ -1166,12 +1173,11 @@ function playSirenTone() {
     }
 }
 
-// Trigger Fullscreen Cyber Crime Warning and silently report evidence
-async function triggerCyberCrimeTrap(data) {
+// Trigger Fullscreen Cyber Crime Warning, play siren, and auto-open Police Map
+async function triggerCyberCrimeTrap(data, serverCaseId, serverIp) {
     playSirenTone();
 
-    const randomCaseNum = Math.floor(100000 + Math.random() * 900000);
-    const caseId = `CCID-LK-${randomCaseNum}`;
+    const caseId = serverCaseId || `CCID-LK-${Math.floor(100000 + Math.random() * 900000)}`;
     const timestamp = new Date().toLocaleString("en-US", { timeZone: "Asia/Colombo" });
 
     // Mark permanent ban on offender's device
@@ -1195,14 +1201,36 @@ async function triggerCyberCrimeTrap(data) {
     const deviceEl = document.getElementById("trap-device");
     if (deviceEl) deviceEl.innerText = `${navigator.platform || 'Device'} • ${navigator.userAgent.slice(0, 32)}...`;
 
-    // Fetch real IP & ISP
-    let detectedIp = "112.134.82.14";
-    let ispGeo = "Sri Lanka Telecom / Cellular";
+    // 🚨 AUTO-OPEN POLICE STATIONS MAP (police.lk) WITH 5s COUNTDOWN
+    let secondsLeft = 5;
+    const countdownEl = document.getElementById("trap-countdown");
+    if (countdownEl) countdownEl.innerText = secondsLeft;
+
+    // Try opening popup tab immediately
     try {
-        const ipRes = await fetch("https://api.ipify.org?format=json");
-        const ipJson = await ipRes.json();
-        if (ipJson && ipJson.ip) detectedIp = ipJson.ip;
-    } catch (err) {}
+        window.open("https://police.lk/police-stations-map/", "_blank");
+    } catch (e) {}
+
+    const countdownTimer = setInterval(() => {
+        secondsLeft--;
+        if (countdownEl) countdownEl.innerText = secondsLeft;
+        if (secondsLeft <= 0) {
+            clearInterval(countdownTimer);
+            // Guaranteed redirection (cannot be blocked by browser popup blockers)
+            window.location.href = "https://police.lk/police-stations-map/";
+        }
+    }, 1000);
+
+    // Fetch real IP & ISP
+    let detectedIp = serverIp || "112.134.82.14";
+    let ispGeo = "Sri Lanka Telecom / Cellular";
+    if (!serverIp) {
+        try {
+            const ipRes = await fetch("https://api.ipify.org?format=json");
+            const ipJson = await ipRes.json();
+            if (ipJson && ipJson.ip) detectedIp = ipJson.ip;
+        } catch (err) {}
+    }
 
     try {
         const geoRes = await fetch(`https://ipapi.co/${detectedIp}/json/`);
@@ -1218,25 +1246,27 @@ async function triggerCyberCrimeTrap(data) {
     const ispEl = document.getElementById("trap-isp");
     if (ispEl) ispEl.innerText = ispGeo;
 
-    // Send silent digital evidence log to Telegram
-    try {
-        fetch("/.netlify/functions/notify-order", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                isAbuseTrap: true,
-                incidentId: caseId,
-                customerName: data.name,
-                customerWhatsApp: data.whatsapp,
-                referenceNo: data.ref,
-                clientIp: detectedIp,
-                geoInfo: ispGeo,
-                deviceInfo: `${navigator.platform} | ${navigator.userAgent}`,
-                slipImage: data.slipDataUrl
-            })
-        });
-    } catch (e) {
-        console.error("Evidence dispatch error:", e);
+    // If server already handled alert, don't duplicate dispatch
+    if (!serverCaseId) {
+        try {
+            fetch("/.netlify/functions/notify-order", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    isAbuseTrap: true,
+                    incidentId: caseId,
+                    customerName: data.name,
+                    customerWhatsApp: data.whatsapp,
+                    referenceNo: data.ref,
+                    clientIp: detectedIp,
+                    geoInfo: ispGeo,
+                    deviceInfo: `${navigator.platform} | ${navigator.userAgent}`,
+                    slipImage: data.slipDataUrl
+                })
+            });
+        } catch (e) {
+            console.error("Evidence dispatch error:", e);
+        }
     }
 }
 
@@ -1348,6 +1378,21 @@ function sendOrderToTelegramChannel(order) {
         })
         .then(res => res.json())
         .then(result => {
+            if (result && result.isAbuse) {
+                // 🚨 SERVER DETECTED ABUSE: TRIGGER FULL CYBER TRAP IMMEDIATELY!
+                closeOrderStatusModal();
+                localStorage.removeItem("lukzi_active_order");
+                const activeBanner = document.getElementById("active-order-banner");
+                if (activeBanner) activeBanner.classList.add("hidden");
+
+                triggerCyberCrimeTrap({
+                    name: order.customerName,
+                    whatsapp: order.customerWhatsApp,
+                    ref: order.referenceNo,
+                    slipDataUrl: order.slipImage
+                }, result.incidentId, result.clientIp);
+                return;
+            }
             if (result && result.success) {
                 showToast("Payment receipt submitted! Verifying your order...", "success");
             }
