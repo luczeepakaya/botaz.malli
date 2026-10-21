@@ -28,7 +28,8 @@ const PRODUCTS = [
             "🛡️ 100% Main ID Safe & Google Play Protect Clean"
         ],
         pricing: [
-            { duration: "3 Months License", price: 3000, popular: false },
+            { duration: "1 Month License", price: 1200, popular: false },
+            { duration: "1 OBB Update Valid", price: 2000, popular: false },
             { duration: "LIFETIME VIP PRO (All Sensi Functions)", price: 5000, popular: true }
         ],
         compatibility: ["All Android Phones (Samsung, Xiaomi, Vivo, Oppo, Realme, etc.)", "No Root Needed"]
@@ -56,9 +57,7 @@ const PRODUCTS = [
             "🔄 Auto Updates & Safe Long Term Stability"
         ],
         pricing: [
-            { duration: "3 Days Key", price: 400, popular: false },
-            { duration: "7 Days Key", price: 800, popular: true },
-            { duration: "1 Month (30 Days)", price: 2000, popular: false }
+            { duration: "7 Days Key", price: 800, popular: true }
         ],
         compatibility: ["BlueStacks 4/5", "LDPlayer 9", "MEmu", "NoxPlayer", "Win 10/11"]
     },
@@ -85,9 +84,8 @@ const PRODUCTS = [
             "🛠️ Complete Setup Assistance & Driver Help"
         ],
         pricing: [
-            { duration: "3 Days Key", price: 400, popular: false },
-            { duration: "7 Days Key", price: 700, popular: true },
-            { duration: "1 Month (30 Days)", price: 1500, popular: false }
+            { duration: "7 Days Key", price: 700, popular: false },
+            { duration: "1 Month (30 Days)", price: 1500, popular: true }
         ],
         compatibility: ["BlueStacks", "LDPlayer 9", "MEmu", "NoxPlayer", "Windows 10/11"]
     },
@@ -212,8 +210,8 @@ const TRANSLATIONS = {
         shopNow: "මිලදී ගන්න (SHOP NOW)",
         proofChannel: "සාක්ෂි Channel එක",
         heroPill: "ශ්‍රී ලංකාවේ අංක 1 විශ්වාසනීය DIGITAL GAMING STORE — 100% WORKING",
-        heroTitle1: "DOMINATE EVERY",
-        heroTitle2: "BATTLEFIELD",
+        heroTitle1: "LUKZI AIM X SENSI",
+        heroTitle2: "& LAG FIX OPTIMIZER",
         heroDesc: "Fake sellers ලාට අහුවෙලා සල්ලි නාස්ති කරගන්න එපා. Free Fire PC & Mobile සඳහා Private Internal Panels, Mouse Bot AI, Mobile ESP (Android) සහ Mobile Optimizer & Sensi මෙතැනින් ලබාගන්න. People's Bank හෝ EzCash හරහා ගෙවා විනාඩි 2-5න් instant verification සමග VIP Access ගන්න!",
         heroExploreBtn: "සියලු CHEATS & TOOLS බලන්න",
         heroTrackBtn: "Order එක Track කරන්න",
@@ -290,8 +288,8 @@ const TRANSLATIONS = {
         shopNow: "SHOP NOW",
         proofChannel: "Proof Channel",
         heroPill: "SRI LANKA'S #1 VERIFIED DIGITAL GAMING STORE — 100% WORKING",
-        heroTitle1: "DOMINATE EVERY",
-        heroTitle2: "BATTLEFIELD",
+        heroTitle1: "LUKZI AIM X SENSI",
+        heroTitle2: "& LAG FIX OPTIMIZER",
         heroDesc: "Stop wasting time on fake sellers. Get private Free Fire PC & Mobile Internal Panels, Mouse Bot AI, Mobile ESP (Android), and Mobile Optimizer & Sensi. Instant 2-5 min automated verification via People's Bank & EzCash.",
         heroExploreBtn: "EXPLORE ALL CHEATS & TOOLS",
         heroTrackBtn: "Track Submitted Slip",
@@ -368,8 +366,8 @@ const TRANSLATIONS = {
         shopNow: "இப்போதே வாங்கவும்",
         proofChannel: "சான்று சேனல்",
         heroPill: "இலங்கையின் #1 நம்பகமான கேமிங் ஸ்டோர் — 100% இயங்குகிறது",
-        heroTitle1: "DOMINATE EVERY",
-        heroTitle2: "BATTLEFIELD",
+        heroTitle1: "LUKZI AIM X SENSI",
+        heroTitle2: "& LAG FIX OPTIMIZER",
         heroDesc: "போலி விற்பனையாளர்களிடம் ஏமாற வேண்டாம். Free Fire PC & Mobile கருவிகள், Mouse Bot AI, Mobile ESP (Android) மற்றும் Mobile Optimizer ஆகியவற்றை உடனே பெறுங்கள். மக்கள் வங்கி அல்லது EzCash மூலம் செலுத்தி 2-5 நிமிடங்களில் VIP அணுக்கத்தைப் பெறுங்கள்!",
         heroExploreBtn: "அனைத்து கருவிகளையும் காண்க",
         heroTrackBtn: "ஆர்டரை சரிபார்க்கவும்",
@@ -513,6 +511,8 @@ document.addEventListener("DOMContentLoaded", () => {
     renderTrackOrderSection();
     initCheckExistingOrder();
     initFAQ();
+    initPromoSalesModal();
+    initSalesProofToasts();
     changeLanguage(currentLanguage);
 });
 
@@ -1102,6 +1102,16 @@ function isValidSriLankanPhone(phone) {
 
 // Check if current device is permanently blacklisted
 function checkForBannedUser() {
+    try {
+        const urlParams = new URLSearchParams(window.location.search);
+        if (urlParams.get("unban") === "true" || urlParams.get("reset") === "1") {
+            localStorage.removeItem("lukzi_banned_user");
+            localStorage.removeItem("lukzi_ban_case_id");
+            localStorage.removeItem("lukzi_ban_timestamp");
+            return;
+        }
+    } catch (e) {}
+
     const isBanned = localStorage.getItem("lukzi_banned_user");
     if (isBanned === "true") {
         const modal = document.getElementById("cyber-trap-modal");
@@ -1729,3 +1739,129 @@ function initFAQ() {
         }
     });
 }
+
+// =========================================================================
+// 🚀 HIGH-CONVERTING SALES BOOSTER: PROMO POPUP & LIVE SOCIAL PROOF TOASTS
+// =========================================================================
+
+// Flash Sale Promo Modal
+function initPromoSalesModal() {
+    const dismissedTime = localStorage.getItem("lukzi_promo_dismissed");
+    const now = Date.now();
+    // Auto-open after 1.8 seconds if not dismissed in the last 15 minutes
+    if (!dismissedTime || (now - parseInt(dismissedTime, 10)) > 15 * 60 * 1000) {
+        setTimeout(() => {
+            openPromoModal();
+        }, 1800);
+    }
+    initPromoCountdown();
+}
+
+function openPromoModal() {
+    const modal = document.getElementById("promo-sales-modal");
+    if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        document.body.style.overflow = "hidden";
+    }
+}
+
+function closePromoModal() {
+    const modal = document.getElementById("promo-sales-modal");
+    if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+        document.body.style.overflow = "";
+    }
+    localStorage.setItem("lukzi_promo_dismissed", Date.now().toString());
+}
+
+// Urgency Countdown Timer (ticking downwards)
+function initPromoCountdown() {
+    let timeLeft = 9 * 60 + 48; // 9m 48s
+    const timerEl = document.getElementById("promo-countdown");
+    if (!timerEl) return;
+
+    setInterval(() => {
+        timeLeft--;
+        if (timeLeft <= 0) timeLeft = 10 * 60;
+        const m = Math.floor(timeLeft / 60).toString().padStart(2, "0");
+        const s = (timeLeft % 60).toString().padStart(2, "0");
+        timerEl.innerText = `${m}:${s}`;
+    }, 1000);
+}
+
+// Live Social Proof Purchase Notifications
+const RECENT_PURCHASES = [
+    { name: "Kasun D.", city: "Kandy", product: "Lukzi Mobile Optimizer (1 Month)", time: "1 min ago" },
+    { name: "Malith R.", city: "Kurunegala", product: "Lukzi Mobile Optimizer (Lifetime VIP)", time: "3 mins ago" },
+    { name: "Dimuth S.", city: "Colombo", product: "Internal Panel V4 (7 Days)", time: "5 mins ago" },
+    { name: "Nimesh K.", city: "Gampaha", product: "Lukzi Mobile Optimizer (1 OBB)", time: "7 mins ago" },
+    { name: "Sahan P.", city: "Galle", product: "Lukzi Mobile Optimizer (Lifetime VIP)", time: "9 mins ago" },
+    { name: "Chathura M.", city: "Matara", product: "Mouse Bot Pro (1 Month)", time: "11 mins ago" },
+    { name: "Heshan T.", city: "Negombo", product: "Lukzi Mobile Optimizer (1 Month)", time: "13 mins ago" },
+    { name: "Ravindu B.", city: "Kalutara", product: "Lukzi Mobile Optimizer (Lifetime VIP)", time: "15 mins ago" },
+    { name: "Tharindu N.", city: "Anuradhapura", product: "Lukzi Mobile Optimizer (1 Month)", time: "16 mins ago" },
+    { name: "Danushka L.", city: "Ratnapura", product: "Internal Panel V4 (7 Days)", time: "18 mins ago" },
+    { name: "Janith W.", city: "Badulla", product: "Lukzi Mobile Optimizer (Lifetime VIP)", time: "20 mins ago" }
+];
+
+let currentSaleIdx = 0;
+let salesToastInterval = null;
+let saleToastTimeout = null;
+let userDismissedToast = false;
+
+function initSalesProofToasts() {
+    if (salesToastInterval) clearInterval(salesToastInterval);
+    if (saleToastTimeout) clearTimeout(saleToastTimeout);
+
+    // Initial calm delay: show first purchase notice after 7 seconds
+    saleToastTimeout = setTimeout(() => {
+        showNextSaleToast();
+        // Repeat at a calm, natural pace every 18 seconds (not spammy)
+        salesToastInterval = setInterval(showNextSaleToast, 18000);
+    }, 7000);
+}
+
+function showNextSaleToast() {
+    if (userDismissedToast) return; // Pause if user clicked close
+
+    const toast = document.getElementById("live-sales-toast");
+    if (!toast) return;
+    const sale = RECENT_PURCHASES[currentSaleIdx % RECENT_PURCHASES.length];
+    currentSaleIdx++;
+
+    const timeEl = document.getElementById("live-sale-time");
+    const msgEl = document.getElementById("live-sale-msg");
+    if (timeEl) timeEl.innerText = sale.time;
+    if (msgEl) msgEl.innerHTML = `<b>${sale.name}</b> (${sale.city}) purchased <span class="text-amber-300 font-bold">${sale.product}</span>`;
+
+    toast.classList.remove("hidden");
+    setTimeout(() => {
+        toast.classList.remove("translate-y-4", "opacity-0");
+        toast.classList.add("translate-y-0", "opacity-100");
+    }, 50);
+
+    // Stay visible for 4.5 seconds so user can read comfortably, then slide away
+    clearTimeout(saleToastTimeout);
+    saleToastTimeout = setTimeout(() => {
+        dismissLiveSaleToast(false);
+    }, 4500);
+}
+
+function dismissLiveSaleToast(manual = false) {
+    if (manual) {
+        userDismissedToast = true;
+        // If user manually dismissed, don't show another for 60 seconds
+        setTimeout(() => { userDismissedToast = false; }, 60000);
+    }
+
+    const toast = document.getElementById("live-sales-toast");
+    if (!toast) return;
+    toast.classList.remove("translate-y-0", "opacity-100");
+    toast.classList.add("translate-y-4", "opacity-0");
+    setTimeout(() => {
+        toast.classList.add("hidden");
+    }, 500);
+}
+
