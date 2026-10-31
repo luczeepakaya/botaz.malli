@@ -1,0 +1,1967 @@
+/* ==========================================================
+   LUKZI CHEATS & STOREFRONT CUSTOM STYLES
+   Sri Lanka's #1 Free Fire Products & Tools Hub
+   Brand Theme: Game Warrior Cyber Gold & Neon Dark
+   ========================================================== */
+
+:root {
+  --lukzi-gold: #ffb320;
+  --lukzi-gold-glow: rgba(255, 179, 32, 0.4);
+  --lukzi-cyan: #00e5ff;
+  --lukzi-cyan-glow: rgba(0, 229, 255, 0.4);
+  --lukzi-red: #ff205f;
+  --lukzi-green: #25d366;
+  --lukzi-dark-bg: #0c0e14;
+  --lukzi-card-bg: #131722;
+  --lukzi-card-border: #232a3b;
+  --lukzi-text-light: #e2e8f0;
+  --lukzi-text-muted: #94a3b8;
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Top Announcement & Location Bar */
+.lukzi-top-bar {
+  background: linear-gradient(90deg, #090b10 0%, #151a27 50%, #090b10 100%);
+  border-bottom: 1px solid rgba(255, 179, 32, 0.25);
+  padding: 8px 0;
+  font-size: 13px;
+  color: #cbd5e1;
+  position: relative;
+  z-index: 100;
+}
+.lukzi-top-bar a {
+  color: var(--lukzi-gold);
+  transition: all 0.2s ease;
+}
+.lukzi-top-bar a:hover {
+  color: #fff;
+  text-shadow: 0 0 8px var(--lukzi-gold);
+}
+.lukzi-location-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 179, 32, 0.12);
+  border: 1px solid rgba(255, 179, 32, 0.35);
+  padding: 3px 10px;
+  border-radius: 20px;
+  color: var(--lukzi-gold);
+  font-weight: 500;
+}
+.lukzi-online-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(37, 211, 102, 0.15);
+  border: 1px solid rgba(37, 211, 102, 0.4);
+  padding: 3px 10px;
+  border-radius: 20px;
+  color: #4ade80;
+  font-weight: 500;
+}
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulse-green 1.8s infinite;
+}
+@keyframes pulse-green {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { box-shadow: 0 0 0 8px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* Header & Brand Upgrades */
+.header-section {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: rgba(15, 18, 26, 0.96) !important;
+  backdrop-filter: blur(10px);
+  border-bottom: 2px solid var(--lukzi-gold);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  padding: 12px 0;
+}
+.site-logo {
+  display: flex !important;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+.lukzi-brand-logo-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 12px;
+  object-fit: cover;
+  border: 2px solid var(--lukzi-gold);
+  box-shadow: 0 0 15px var(--lukzi-gold-glow);
+  transition: transform 0.3s ease;
+}
+.site-logo:hover .lukzi-brand-logo-img {
+  transform: scale(1.08) rotate(3deg);
+}
+.lukzi-brand-title {
+  display: flex;
+  flex-direction: column;
+}
+.lukzi-brand-main {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #ffffff;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.lukzi-brand-main span {
+  color: var(--lukzi-gold);
+  text-shadow: 0 0 12px var(--lukzi-gold-glow);
+}
+.lukzi-brand-sub {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-top: 2px;
+}
+
+/* Community Join Button in Header */
+.lukzi-community-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #fff !important;
+  font-weight: 600;
+  font-size: 13px;
+  padding: 8px 18px;
+  border-radius: 25px;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+  transition: all 0.3s ease;
+  border: none;
+}
+.lukzi-community-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+  color: #fff !important;
+}
+
+/* News Ticker Improvements */
+.latest-news-section {
+  background: #0f121a;
+  border-bottom: 1px solid #1e2638;
+}
+.news-ticker .nt-item {
+  color: #cbd5e1;
+  font-size: 13.5px;
+  margin-right: 40px;
+}
+.news-ticker .nt-item span.highlight {
+  background: var(--lukzi-gold);
+  color: #000;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin-right: 6px;
+}
+
+/* Hero Section Refinements - 100% Crystal Clear HD Backgrounds */
+.hero-slider .hs-item {
+  position: relative;
+  background-position: center center !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+}
+/* Completely remove the dark overlay so the user's high-quality photos shine in 100% original bright colors */
+.hero-slider .hs-item::before {
+  display: none !important;
+}
+.hero-slider .hs-text {
+  position: relative;
+  z-index: 2;
+}
+.hero-slider .hs-text h2 {
+  font-size: 52px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 2px 6px #000, 0 0 35px rgba(0, 0, 0, 0.9);
+}
+.hero-slider .hs-text h2 span {
+  color: var(--lukzi-gold);
+  text-shadow: 0 0 20px var(--lukzi-gold-glow), 0 3px 10px rgba(0, 0, 0, 0.9);
+}
+.hero-slider .hs-text p.slogan {
+  font-size: 18px;
+  color: #ffffff;
+  font-weight: 600;
+  margin-bottom: 8px;
+  line-height: 1.6;
+  text-shadow: 0 3px 14px rgba(0, 0, 0, 0.95), 0 1px 4px #000;
+}
+.hero-slider .hs-text p.sub-features {
+  font-size: 14.5px;
+  color: var(--lukzi-cyan);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 25px;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.95), 0 0 15px rgba(0, 0, 0, 0.9);
+}
+.hero-btn-group {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+.site-btn.btn-outline-gold {
+  background: transparent;
+  color: var(--lukzi-gold);
+  border: 2px solid var(--lukzi-gold);
+  box-shadow: 0 0 15px rgba(255, 179, 32, 0.2);
+}
+.site-btn.btn-outline-gold:hover {
+  background: var(--lukzi-gold);
+  color: #000;
+}
+.site-btn.btn-whatsapp {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #fff;
+  border: none;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+}
+.site-btn.btn-whatsapp:hover {
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+}
+
+/* Trust Bar / Stats Bar */
+.lukzi-trust-bar {
+  background: #11151f;
+  border-top: 1px solid #1e2638;
+  border-bottom: 1px solid #1e2638;
+  padding: 30px 0;
+}
+.trust-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 10px;
+}
+.trust-icon {
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 179, 32, 0.1);
+  border: 1px solid rgba(255, 179, 32, 0.3);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--lukzi-gold);
+  flex-shrink: 0;
+}
+.trust-text h5 {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.trust-text p {
+  color: #94a3b8;
+  font-size: 12.5px;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* SECTION TITLES */
+.lukzi-section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.lukzi-section-title .section-tag {
+  display: inline-block;
+  background: rgba(255, 179, 32, 0.15);
+  border: 1px solid var(--lukzi-gold);
+  color: var(--lukzi-gold);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding: 4px 16px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+.lukzi-section-title h2 {
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.lukzi-section-title h2 span {
+  color: var(--lukzi-gold);
+  text-shadow: 0 0 15px var(--lukzi-gold-glow);
+}
+.lukzi-section-title p {
+  color: #94a3b8;
+  font-size: 15px;
+  max-width: 650px;
+  margin: 0 auto;
+}
+
+/* ==========================================================
+   PRODUCT CARDS
+   ========================================================== */
+.lukzi-products-section {
+  background: #0c0e14;
+  padding: 85px 0;
+}
+.lukzi-product-card {
+  background: var(--lukzi-card-bg);
+  border: 1px solid var(--lukzi-card-border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: all 0.35s ease;
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.lukzi-product-card:hover {
+  transform: translateY(-8px);
+  border-color: var(--lukzi-gold);
+  box-shadow: 0 18px 40px rgba(255, 179, 32, 0.15), 0 0 20px rgba(0, 0, 0, 0.8);
+}
+.product-badge-wrap {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 10;
+}
+.product-badge {
+  display: inline-block;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+.badge-gold {
+  background: linear-gradient(135deg, #ffb320, #f59e0b);
+  color: #000;
+}
+.badge-red {
+  background: linear-gradient(135deg, #ff205f, #dc2626);
+  color: #fff;
+}
+.badge-cyan {
+  background: linear-gradient(135deg, #00e5ff, #0284c7);
+  color: #000;
+}
+.badge-purple {
+  background: linear-gradient(135deg, #a855f7, #6366f1);
+  color: #fff;
+}
+.product-thumb-box {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  position: relative;
+  background: #090b10;
+}
+.product-thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.lukzi-product-card:hover .product-thumb-box img {
+  transform: scale(1.07);
+}
+.product-card-body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.product-platform {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11.5px;
+  color: var(--lukzi-cyan);
+  background: rgba(0, 229, 255, 0.08);
+  border: 1px solid rgba(0, 229, 255, 0.25);
+  padding: 3px 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  width: fit-content;
+  font-weight: 600;
+}
+.product-title {
+  color: #ffffff;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.3;
+  margin-bottom: 8px;
+}
+.product-tagline {
+  color: var(--lukzi-gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.product-features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+.product-features-list li {
+  color: #cbd5e1;
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+.product-features-list li i {
+  color: #22c55e;
+  font-size: 13px;
+  margin-top: 4px;
+  flex-shrink: 0;
+}
+
+/* Pricing Selector */
+.product-pricing-wrap {
+  background: #0c0f17;
+  border: 1px solid #1e2638;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 18px;
+}
+.pricing-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: block;
+}
+.pricing-options {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pricing-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 7px 10px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid #232b3e;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 12.5px;
+  color: #cbd5e1;
+}
+.pricing-pill:hover,
+.pricing-pill.active {
+  background: rgba(255, 179, 32, 0.12);
+  border-color: var(--lukzi-gold);
+  color: #fff;
+}
+.pricing-pill.active .price-tag {
+  color: var(--lukzi-gold);
+  font-weight: 700;
+}
+.pricing-pill .price-tag {
+  font-weight: 700;
+  font-size: 13.5px;
+}
+.pricing-pill .popular-badge {
+  background: var(--lukzi-red);
+  color: #fff;
+  font-size: 9.5px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  font-weight: 700;
+}
+
+/* Buy Action Button */
+.product-card-footer {
+  margin-top: auto;
+}
+.btn-buy-product {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #ffb320 0%, #f59e0b 100%);
+  color: #000;
+  font-weight: 800;
+  font-size: 14.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 13px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 179, 32, 0.3);
+}
+.btn-buy-product:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 179, 32, 0.5);
+  color: #000;
+}
+
+/* ==========================================================
+   BANK & PAYMENT SECTION
+   ========================================================== */
+.lukzi-payments-section {
+  background: #0f121a;
+  border-top: 1px solid #1e2638;
+  border-bottom: 1px solid #1e2638;
+  padding: 85px 0;
+}
+.payment-card {
+  background: var(--lukzi-card-bg);
+  border: 1px solid var(--lukzi-card-border);
+  border-radius: 16px;
+  padding: 30px;
+  height: 100%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+.payment-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+}
+.payment-card.peoples-bank::before {
+  background: linear-gradient(90deg, #ffb320, #eab308);
+}
+.payment-card.ezcash::before {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+}
+.payment-card-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 24px;
+}
+.payment-card-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  flex-shrink: 0;
+}
+.payment-card.peoples-bank .payment-card-icon {
+  background: rgba(255, 179, 32, 0.15);
+  border: 1px solid rgba(255, 179, 32, 0.4);
+  color: var(--lukzi-gold);
+}
+.payment-card.ezcash .payment-card-icon {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #ef4444;
+}
+.payment-card-title h3 {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 2px;
+}
+.payment-card-title p {
+  color: #94a3b8;
+  font-size: 13px;
+  margin: 0;
+}
+
+/* Copyable Detail Boxes */
+.copy-box {
+  background: #090b10;
+  border: 1px solid #232b3e;
+  border-radius: 10px;
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  transition: border-color 0.2s ease;
+}
+.copy-box:hover {
+  border-color: var(--lukzi-gold);
+}
+.copy-box-left {
+  display: flex;
+  flex-direction: column;
+}
+.copy-box-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+.copy-box-value {
+  font-size: 18px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 1px;
+  font-family: 'Courier New', Courier, monospace;
+}
+.btn-copy {
+  background: rgba(255, 179, 32, 0.15);
+  color: var(--lukzi-gold);
+  border: 1px solid rgba(255, 179, 32, 0.3);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-copy:hover {
+  background: var(--lukzi-gold);
+  color: #000;
+}
+
+/* LankaQR Block */
+.qr-container-box {
+  background: #090b10;
+  border: 1px dashed rgba(255, 179, 32, 0.4);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+}
+.qr-preview-img {
+  width: 110px;
+  height: 110px;
+  border-radius: 8px;
+  background: #fff;
+  padding: 5px;
+  object-fit: contain;
+  cursor: pointer;
+  border: 2px solid var(--lukzi-gold);
+}
+.qr-info-text h6 {
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.qr-info-text p {
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 8px;
+}
+.qr-apps-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.qr-app-tag {
+  background: rgba(255, 255, 255, 0.05);
+  color: #cbd5e1;
+  font-size: 10.5px;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+/* ==========================================================
+   TECHNICAL SUPPORT ADMINS SECTION
+   ========================================================== */
+.lukzi-admins-section {
+  background: #0c0e14;
+  padding: 85px 0;
+}
+.admin-card {
+  background: var(--lukzi-card-bg);
+  border: 1px solid var(--lukzi-card-border);
+  border-radius: 16px;
+  padding: 30px;
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+.admin-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--lukzi-cyan);
+  box-shadow: 0 15px 35px rgba(0, 229, 255, 0.12);
+}
+.admin-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 3px solid var(--lukzi-gold);
+  box-shadow: 0 0 20px var(--lukzi-gold-glow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 38px;
+  margin-bottom: 16px;
+  position: relative;
+}
+.admin-card.dinu .admin-avatar {
+  border-color: var(--lukzi-cyan);
+  box-shadow: 0 0 20px var(--lukzi-cyan-glow);
+}
+.admin-status-dot {
+  position: absolute;
+  bottom: 4px;
+  right: 4px;
+  width: 16px;
+  height: 16px;
+  background: #22c55e;
+  border: 3px solid #131722;
+  border-radius: 50%;
+}
+.admin-name {
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+.admin-role {
+  color: var(--lukzi-gold);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.admin-card.dinu .admin-role {
+  color: var(--lukzi-cyan);
+}
+.admin-services {
+  color: #cbd5e1;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin-bottom: 22px;
+  flex-grow: 1;
+}
+.admin-whatsapp-btn {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #fff !important;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.admin-whatsapp-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+  color: #fff !important;
+}
+
+/* ==========================================================
+   DRIVER DOWNLOADS & VIDEOS SECTION
+   ========================================================== */
+.lukzi-downloads-section {
+  background: #0f121a;
+  border-top: 1px solid #1e2638;
+  padding: 85px 0;
+}
+.driver-download-card {
+  background: var(--lukzi-card-bg);
+  border: 1px solid var(--lukzi-card-border);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+.driver-download-card:hover {
+  border-color: var(--lukzi-gold);
+  transform: translateX(6px);
+}
+.driver-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.driver-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background: rgba(255, 179, 32, 0.1);
+  border: 1px solid rgba(255, 179, 32, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--lukzi-gold);
+}
+.driver-text h5 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.driver-text p {
+  color: #94a3b8;
+  font-size: 12.5px;
+  margin: 0;
+}
+.btn-driver-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #1e2638;
+  color: #fff;
+  border: 1px solid #334155;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+.btn-driver-download:hover {
+  background: var(--lukzi-gold);
+  color: #000;
+  border-color: var(--lukzi-gold);
+}
+
+/* ==========================================================
+   STEALTH SECURE VIDEO PLAYER (NO-YOUTUBE BRANDING & AUTO-PLAY)
+   ========================================================== */
+.lukzi-stealth-player {
+  background: #090b10;
+  border: 2px solid #1e2638;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  margin-bottom: 25px;
+}
+.lukzi-stealth-player:hover {
+  border-color: var(--lukzi-gold);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.8), 0 0 25px var(--lukzi-gold-glow);
+}
+.lukzi-stealth-player:hover .stealth-thumb-img,
+.lukzi-stealth-player:hover .stealth-screen-container img {
+  transform: scale(1.03);
+}
+.stealth-player-header {
+  background: #0d111a;
+  border-bottom: 1px solid #1e2638;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #94a3b8;
+}
+.stealth-feed-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 11.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.stream-live-dot {
+  width: 8px;
+  height: 8px;
+  background: #ef4444;
+  border-radius: 50%;
+  box-shadow: 0 0 0 rgba(239, 68, 68, 0.7);
+  animation: pulse-red 1.5s infinite;
+}
+@keyframes pulse-red {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+.stealth-feed-badge {
+  background: rgba(0, 229, 255, 0.1);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  color: var(--lukzi-cyan);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 10.5px;
+}
+.stealth-screen-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 ratio */
+  height: 0;
+  overflow: hidden;
+  background: #000;
+}
+.stealth-screen-container img,
+.stealth-screen-container .stealth-thumb-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+}
+.stealth-screen-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  pointer-events: auto;
+  z-index: 2;
+}
+.stealth-sound-alert {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  background: rgba(15, 18, 26, 0.9);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--lukzi-gold);
+  border-radius: 20px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #fff;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6), 0 0 10px var(--lukzi-gold-glow);
+  transition: all 0.25s ease;
+}
+.stealth-sound-alert:hover {
+  background: var(--lukzi-gold);
+  color: #000;
+  transform: scale(1.04);
+}
+.stealth-sound-alert.is-unmuted {
+  display: none !important;
+}
+.stealth-controls-bar {
+  background: #0a0d14;
+  border-top: 1px solid #1e2638;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.stealth-ctrl-left, .stealth-ctrl-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.stealth-ctrl-btn {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid #232b3e;
+  border-radius: 6px;
+  color: #cbd5e1;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.stealth-ctrl-btn:hover {
+  background: rgba(255, 179, 32, 0.15);
+  border-color: var(--lukzi-gold);
+  color: #fff;
+}
+.stream-status-pill {
+  font-size: 11px;
+  color: #22c55e;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.video-card-content {
+  padding: 16px 20px;
+  background: #0d111a;
+  border-top: 1px solid #1e2638;
+}
+.video-card-content h5 {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+.video-card-content p {
+  color: #94a3b8;
+  font-size: 12px;
+  margin: 0;
+}
+
+/* ==========================================================
+   LUKZI VIDEO PREVIEW CARDS (EXACT MATCH WITH FREE FIRE WEB)
+   ========================================================== */
+.lukzi-video-card {
+  background: var(--lukzi-card-bg);
+  border: 1px solid var(--lukzi-card-border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  height: 100%;
+}
+.lukzi-video-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--lukzi-cyan);
+  box-shadow: 0 15px 35px rgba(0, 229, 255, 0.2);
+}
+.video-card-thumb-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+.video-card-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.82;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+.lukzi-video-card:hover .video-card-thumb-wrap img {
+  transform: scale(1.06);
+  opacity: 1;
+}
+.video-card-play-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(220, 38, 38, 0.9);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  box-shadow: 0 10px 25px rgba(220, 38, 38, 0.5);
+  transition: transform 0.3s ease, background 0.2s ease;
+}
+.lukzi-video-card:hover .video-card-play-btn {
+  transform: translate(-50%, -50%) scale(1.15);
+  background: #ef4444;
+}
+.video-card-badge-top {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  color: var(--lukzi-cyan);
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.video-card-duration-tag {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+.video-card-meta {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  justify-content: space-between;
+}
+.video-card-creator-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #94a3b8;
+  margin-bottom: 6px;
+}
+.video-card-creator-name {
+  color: #4ade80;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.video-card-title {
+  color: #fff;
+  font-size: 15px;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.4;
+  margin-bottom: 6px;
+  transition: color 0.2s ease;
+}
+.lukzi-video-card:hover .video-card-title {
+  color: var(--lukzi-cyan);
+}
+.video-card-desc {
+  color: #94a3b8;
+  font-size: 12px;
+  line-height: 1.5;
+  margin-bottom: 14px;
+}
+.video-card-action-row {
+  border-top: 1px solid #1e2638;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--lukzi-cyan);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Customer Proofs Gallery */
+.proof-gallery-img {
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--lukzi-card-border);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+.proof-gallery-img:hover {
+  transform: scale(1.05);
+  border-color: var(--lukzi-gold);
+  box-shadow: 0 0 15px var(--lukzi-gold-glow);
+}
+
+/* ==========================================================
+   CUSTOMER PROOF IMAGE ZOOM & IN-SITE LIGHTBOX MODAL
+   ========================================================== */
+.proof-img-container {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid var(--lukzi-card-border);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+  height: 180px;
+  background: #090c13;
+}
+.proof-img-container:hover {
+  transform: translateY(-4px) scale(1.02);
+  border-color: var(--lukzi-gold);
+  box-shadow: 0 12px 28px rgba(255, 179, 32, 0.25);
+}
+.proof-img-container img.proof-gallery-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+  display: block;
+}
+.proof-img-container:hover img.proof-gallery-img {
+  transform: scale(1.08);
+}
+.proof-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+.proof-img-container:hover .proof-img-overlay {
+  opacity: 1;
+}
+.proof-img-overlay i {
+  font-size: 24px;
+  color: var(--lukzi-gold);
+}
+
+/* In-Site Lightbox Image Zoom Modal */
+.lukzi-img-modal-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 9999999;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+  cursor: zoom-out;
+}
+.lukzi-img-modal-backdrop.show {
+  display: flex !important;
+}
+.lukzi-img-modal-content {
+  position: relative;
+  max-width: 900px;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: default;
+  animation: modalSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lukzi-img-modal-content img {
+  max-width: 100%;
+  max-height: 78vh;
+  object-fit: contain;
+  border-radius: 14px;
+  border: 2px solid rgba(255, 179, 32, 0.6);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 35px rgba(255, 179, 32, 0.3);
+  background: #090c13;
+}
+.lukzi-img-modal-caption {
+  margin-top: 14px;
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: center;
+  background: rgba(17, 21, 31, 0.9);
+  padding: 8px 22px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 179, 32, 0.3);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+.lukzi-img-modal-close {
+  position: absolute;
+  top: -45px;
+  right: 0;
+  background: rgba(239, 68, 68, 0.9);
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+}
+.lukzi-img-modal-close:hover {
+  background: #dc2626;
+  transform: scale(1.05);
+}
+
+/* ==========================================================
+   SETUP VIDEO SHOWCASE CARD (2-COLUMN HIGH-TECH)
+   ========================================================== */
+.lukzi-setup-card {
+  background: linear-gradient(135deg, rgba(17, 21, 31, 0.95) 0%, rgba(11, 14, 20, 0.98) 100%);
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  border-radius: 20px;
+  padding: 35px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), 0 0 25px rgba(0, 229, 255, 0.1);
+}
+.setup-guide-badge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+.setup-guide-title {
+  color: #fff;
+  font-size: 26px;
+  font-weight: 800;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.setup-guide-desc {
+  color: #cbd5e1;
+  font-size: 13.5px;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+.setup-guide-points {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px 0;
+}
+.setup-guide-points li {
+  color: #e2e8f0;
+  font-size: 13px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.setup-guide-points li .bullet-check {
+  color: #34d399;
+  font-weight: 800;
+  font-size: 14px;
+}
+.setup-buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.btn-watch-setup {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: #dc2626;
+  color: #fff !important;
+  font-weight: 800;
+  font-size: 12.5px;
+  text-transform: uppercase;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.4);
+}
+.btn-watch-setup:hover {
+  background: #ef4444;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(239, 68, 68, 0.6);
+}
+.btn-setup-yt {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: #090c13;
+  color: #e2e8f0 !important;
+  font-weight: 700;
+  font-size: 12.5px;
+  border-radius: 10px;
+  border: 1px solid #28334b;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-setup-yt:hover {
+  background: #151a26;
+  color: #fff !important;
+  border-color: #ef4444;
+}
+.btn-setup-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background: rgba(0, 229, 255, 0.1);
+  color: #38bdf8 !important;
+  font-weight: 700;
+  font-size: 12.5px;
+  border-radius: 10px;
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+.btn-setup-wa:hover {
+  background: rgba(0, 229, 255, 0.2);
+  color: #fff !important;
+  border-color: #38bdf8;
+}
+
+/* Video Box on Right */
+.setup-video-box {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  background: #000;
+  aspect-ratio: 16 / 9;
+  cursor: pointer;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.setup-video-box:hover {
+  transform: translateY(-4px);
+  border-color: #ef4444;
+  box-shadow: 0 20px 45px rgba(220, 38, 38, 0.3);
+}
+.setup-video-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.85;
+  transition: transform 0.5s ease, opacity 0.3s ease;
+}
+.setup-video-box:hover img {
+  transform: scale(1.05);
+  opacity: 0.95;
+}
+.setup-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: background 0.3s ease;
+}
+.setup-video-box:hover .setup-video-overlay {
+  background: rgba(0, 0, 0, 0.2);
+}
+.setup-play-circle {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #dc2626;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  box-shadow: 0 0 30px rgba(220, 38, 38, 0.7);
+  transition: transform 0.3s ease;
+}
+.setup-video-box:hover .setup-play-circle {
+  transform: scale(1.15);
+  background: #ef4444;
+}
+.setup-video-label {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.8);
+}
+
+/* Video Modal Dialog */
+.lukzi-video-modal-dialog {
+  background: #0d1017;
+  border: 1px solid rgba(0, 229, 255, 0.5);
+  border-radius: 18px;
+  max-width: 820px;
+  width: 100%;
+  padding: 18px 20px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.9), 0 0 35px rgba(0, 229, 255, 0.2);
+  position: relative;
+  animation: modalSlideIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.lukzi-video-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #1e2638;
+  margin-bottom: 14px;
+}
+.lukzi-video-modal-header h4 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.lukzi-video-modal-header h4 .play-icon {
+  color: #ef4444;
+  font-size: 18px;
+}
+.lukzi-video-modal-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #1e2638;
+}
+.lukzi-video-modal-frame iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+.lukzi-video-modal-footer {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  color: #94a3b8;
+}
+.lukzi-video-modal-footer .live-badge {
+  color: #4ade80;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.lukzi-video-modal-footer .live-badge .pulse-dot {
+  width: 8px;
+  height: 8px;
+  background: #4ade80;
+  border-radius: 50%;
+  display: inline-block;
+  animation: pulse-dot 1.5s infinite;
+}
+
+/* ==========================================================
+   ORDER TRACKING SECTION
+   ========================================================== */
+.lukzi-track-section {
+  background: #0c0e14;
+  padding: 85px 0;
+  border-top: 1px solid #1e2638;
+}
+.track-card {
+  background: var(--lukzi-card-bg);
+  border: 1px solid var(--lukzi-card-border);
+  border-radius: 16px;
+  padding: 35px;
+  max-width: 750px;
+  margin: 0 auto;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+}
+.track-input-group {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.track-input {
+  flex-grow: 1;
+  background: #090b10;
+  border: 1px solid #232b3e;
+  border-radius: 8px;
+  padding: 12px 18px;
+  color: #fff;
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.track-input:focus {
+  border-color: var(--lukzi-gold);
+}
+.btn-track {
+  background: var(--lukzi-gold);
+  color: #000;
+  font-weight: 800;
+  font-size: 14px;
+  padding: 0 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.btn-track:hover {
+  background: #f59e0b;
+}
+.track-result-box {
+  display: none;
+  background: #090b10;
+  border: 1px solid #232b3e;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+}
+.track-result-box.active {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ==========================================================
+   MODAL DIALOGS (CHECKOUT, SUCCESS, ABUSE TRAP)
+   ========================================================== */
+.lukzi-modal-backdrop {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 99999;
+  overflow-y: auto;
+  padding: 20px;
+  align-items: center;
+  justify-content: center;
+}
+.lukzi-modal-backdrop.show {
+  display: flex;
+}
+.lukzi-modal-box {
+  background: #11151f;
+  border: 2px solid var(--lukzi-gold);
+  border-radius: 18px;
+  max-width: 620px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), 0 0 30px var(--lukzi-gold-glow);
+  position: relative;
+  overflow: hidden;
+  animation: modalSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+@keyframes modalSlideIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+.modal-header-cyber {
+  padding: 20px 25px;
+  background: #0b0e14;
+  border-bottom: 1px solid #1e2638;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-header-cyber h4 {
+  color: #fff;
+  font-size: 19px;
+  font-weight: 800;
+  margin: 0;
+}
+.modal-header-cyber h4 span {
+  color: var(--lukzi-gold);
+}
+.btn-close-modal {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+.btn-close-modal:hover {
+  color: #fff;
+}
+.modal-body-cyber {
+  padding: 25px;
+  max-height: 75vh;
+  overflow-y: auto;
+}
+.modal-form-group {
+  margin-bottom: 18px;
+}
+.modal-form-label {
+  display: block;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #cbd5e1;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.modal-form-control {
+  width: 100%;
+  background: #07090e;
+  border: 1px solid #232b3e;
+  border-radius: 8px;
+  padding: 11px 14px;
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.modal-form-control:focus {
+  border-color: var(--lukzi-gold);
+  box-shadow: 0 0 10px rgba(255, 179, 32, 0.2);
+}
+
+/* Payment Tab Selectors */
+.payment-method-toggle {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+.pm-tab-btn {
+  background: #090b10;
+  border: 1px solid #232b3e;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  color: #94a3b8;
+  font-weight: 700;
+  font-size: 13px;
+  transition: all 0.2s ease;
+}
+.pm-tab-btn.active {
+  background: rgba(255, 179, 32, 0.12);
+  border-color: var(--lukzi-gold);
+  color: #fff;
+}
+
+/* File Upload Drop Area */
+.upload-drop-zone {
+  border: 2px dashed #232b3e;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  background: #090b10;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+.upload-drop-zone:hover {
+  border-color: var(--lukzi-gold);
+}
+.upload-icon {
+  font-size: 28px;
+  color: var(--lukzi-gold);
+  margin-bottom: 6px;
+}
+.upload-preview-wrap {
+  display: none;
+  margin-top: 10px;
+  position: relative;
+}
+.upload-preview-wrap.show {
+  display: block;
+}
+.upload-preview-wrap img {
+  max-height: 120px;
+  border-radius: 6px;
+  border: 1px solid #334155;
+  margin: 0 auto;
+}
+
+/* Modal Actions */
+.btn-submit-order {
+  width: 100%;
+  background: linear-gradient(135deg, #ffb320 0%, #f59e0b 100%);
+  color: #000;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 15px rgba(255, 179, 32, 0.4);
+  transition: all 0.2s ease;
+}
+.btn-submit-order:hover {
+  background: #f59e0b;
+  transform: translateY(-2px);
+}
+.btn-submit-order:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* License Key Display in Success Modal */
+.license-key-badge {
+  background: #090b10;
+  border: 2px dashed #22c55e;
+  border-radius: 10px;
+  padding: 14px;
+  text-align: center;
+  margin: 18px 0;
+}
+.key-label {
+  font-size: 11px;
+  color: #86efac;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.key-value {
+  font-size: 22px;
+  font-weight: 900;
+  color: #4ade80;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 2px;
+}
+
+/* Cyber Abuse Alert Modal */
+.lukzi-abuse-box {
+  border-color: #ef4444 !important;
+  box-shadow: 0 0 40px rgba(239, 68, 68, 0.6) !important;
+}
+.abuse-warning-text {
+  color: #fca5a5;
+  font-size: 14px;
+  line-height: 1.6;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  padding: 15px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+/* Toast Message */
+.lukzi-toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: #11151f;
+  color: #fff;
+  border: 1px solid var(--lukzi-gold);
+  border-radius: 30px;
+  padding: 12px 24px;
+  font-size: 13.5px;
+  font-weight: 600;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 15px var(--lukzi-gold-glow);
+  z-index: 999999;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+.lukzi-toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+/* Floating WhatsApp Community Pill */
+.floating-whatsapp-channel {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+  color: #fff !important;
+  padding: 12px 20px;
+  border-radius: 35px;
+  font-weight: 700;
+  font-size: 13.5px;
+  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.floating-whatsapp-channel:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: 0 12px 30px rgba(37, 211, 102, 0.7);
+  color: #fff !important;
+}
+.floating-whatsapp-channel .badge-dot {
+  width: 10px;
+  height: 10px;
+  background: #fff;
+  border-radius: 50%;
+  animation: pulse-dot 1.5s infinite;
+}
+@keyframes pulse-dot {
+  0% { transform: scale(0.9); opacity: 0.9; }
+  50% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(0.9); opacity: 0.9; }
+}
+
+/* Responsive adjustments */
+@media (max-width: 991px) {
+  .hero-section .hs-text h2 {
+    font-size: 36px;
+  }
+  .lukzi-brand-main {
+    font-size: 18px;
+  }
+  .main-menu {
+    margin-right: 0;
+  }
+}
+@media (max-width: 576px) {
+  .hero-section .hs-text h2 {
+    font-size: 28px;
+  }
+  .track-input-group {
+    flex-direction: column;
+  }
+  .btn-track {
+    padding: 12px;
+  }
+  .floating-whatsapp-channel span.btn-label {
+    display: none;
+  }
+  .floating-whatsapp-channel {
+    padding: 14px;
+    border-radius: 50%;
+    bottom: 20px;
+    right: 20px;
+  }
+}

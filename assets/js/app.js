@@ -3,11 +3,11 @@
  * Sri Lanka's #1 Free Fire Gaming Tools Hub
  */
 
-// Product Catalog - Highlighting LUKZI MOBILE OPTIMIZER & SENSI as #1 Best Seller
+// Product Catalog - Featuring Updated 2026 Price List
 const PRODUCTS = [
     {
         id: "mobile-optimizer",
-        name: "LUKZI MOBILE OPTIMIZER & SENSI",
+        name: "LUKZI MOBILE OPTIMIZER & SENSI APK",
         tagline: "ALL-IN-ONE DEVICE BOOSTER & AIM SENSI CALIBRATOR",
         badge: "🇱🇰 ලංකාවේ NO.1 (MOST POPULAR)",
         badgeColor: "bg-amber-500/20 text-amber-300 border-amber-500/50",
@@ -29,14 +29,13 @@ const PRODUCTS = [
         ],
         pricing: [
             { duration: "1 Month License", price: 1200, popular: false },
-            { duration: "1 OBB Update Valid", price: 2000, popular: false },
-            { duration: "LIFETIME VIP PRO (All Sensi Functions)", price: 5000, popular: true }
+            { duration: "Lifetime VIP License", price: 4000, popular: true }
         ],
         compatibility: ["All Android Phones (Samsung, Xiaomi, Vivo, Oppo, Realme, etc.)", "No Root Needed"]
     },
     {
         id: "internal-panel-v4",
-        name: "INTERNAL PANEL V4 (1.0v)",
+        name: "INTERNAL PANEL V4",
         tagline: "ALL IN ONE FREE FIRE & MAX INTERNAL CHEAT",
         badge: "🔥 PC BESTSELLER",
         badgeColor: "bg-red-500/20 text-red-400 border-red-500/40",
@@ -57,13 +56,14 @@ const PRODUCTS = [
             "🔄 Auto Updates & Safe Long Term Stability"
         ],
         pricing: [
-            { duration: "7 Days Key", price: 800, popular: true }
+            { duration: "1 Month License", price: 1200, popular: false },
+            { duration: "Lifetime VIP License", price: 3000, popular: true }
         ],
         compatibility: ["BlueStacks 4/5", "LDPlayer 9", "MEmu", "NoxPlayer", "Win 10/11"]
     },
     {
         id: "mouse-bot-pro",
-        name: "MOUSE BOT PRO (1.7v)",
+        name: "MOUSE BOT PRO PANEL",
         tagline: "AI SMART AIM ASSISTANT FOR PC EMULATORS",
         badge: "⚡ 100% MAIN ID SAFE",
         badgeColor: "bg-cyan-500/20 text-cyan-400 border-cyan-500/40",
@@ -84,38 +84,91 @@ const PRODUCTS = [
             "🛠️ Complete Setup Assistance & Driver Help"
         ],
         pricing: [
-            { duration: "7 Days Key", price: 700, popular: false },
-            { duration: "1 Month (30 Days)", price: 1500, popular: true }
+            { duration: "1 Month License", price: 1000, popular: false },
+            { duration: "Lifetime VIP License", price: 2500, popular: true }
         ],
         compatibility: ["BlueStacks", "LDPlayer 9", "MEmu", "NoxPlayer", "Windows 10/11"]
     },
     {
-        id: "mobile-esp",
-        name: "MOBILE ESP (ANDROID)",
-        tagline: "REAL PLAYERS USE ESP — SEE THEM FIRST, STAY AHEAD",
-        badge: "📱 ANDROID ONLY (iOS COMING SOON ⏳)",
+        id: "pc-optimizer-regedit",
+        name: "PC OPTIMIZE SOFTWARE + REGEDIT & SENSI PACK",
+        tagline: "ULTRA FPS BOOST, WINDOWS REGEDIT TWEAKS & PRO SENSI PACK",
+        badge: "🚀 PC ULTRA BOOST",
+        badgeColor: "bg-blue-500/20 text-blue-400 border-blue-500/40",
+        themeColor: "cyan",
+        category: "pc",
+        deviceTypes: ["pc"],
+        deviceIcon: "💻",
+        platform: "PC (Windows 10 / 11 & All Emulators)",
+        image: "assets/images/lukzi-logo.jpg",
+        description: "PC Emulator ක්‍රීඩකයින් සඳහා විශේෂිත වූ One-Click Windows Gaming Registry Tweaks (Regedit), RAM Booster, FPS Optimizer සහ Pro Sensitivity Pack එක. 100% Safe & Lifetime Access!",
+        features: [
+            "⚡ High FPS Boost & Latency Reducer for BlueStacks / LDPlayer",
+            "🛠️ One-Click Windows Gaming Registry Tweaks (Regedit)",
+            "🎯 Pro Headshot Sensitivity Pack & Mouse DPI Calibration",
+            "🧹 Deep Cache Cleaner & Background Process Eliminator",
+            "🛡️ 100% Main ID Safe - Zero Game File Modification",
+            "🔄 Lifetime Updates Included (No Renewal Fees)",
+            "📹 Complete Step-by-Step Installation Video Included"
+        ],
+        pricing: [
+            { duration: "Lifetime Valid License", price: 2000, popular: true }
+        ],
+        compatibility: ["Windows 10 (64-bit)", "Windows 11 (64-bit)", "BlueStacks 4/5", "LDPlayer 9", "MSI App Player"]
+    },
+    {
+        id: "mobile-aimbot-esp-android",
+        name: "MOBILE AIM BOT + ESP (ANDROID)",
+        tagline: "PRECISION AIMBOT & ENEMY RADAR ESP FOR ANDROID",
+        badge: "🤖 ANDROID PANEL",
         badgeColor: "bg-emerald-500/20 text-emerald-400 border-emerald-500/40",
         themeColor: "emerald",
         category: "mobile",
         deviceTypes: ["android", "mobile"],
         deviceIcon: "📱",
-        platform: "Android (All Versions) • iOS Coming Soon ⏳",
+        platform: "Android Mobile (All Versions)",
         image: "assets/images/mobile-esp.jpg",
-        description: "Mobile Android ක්‍රීඩකයින් සඳහා වන Ultimate Visual Awareness ESP එක. TikTok / YouTube Live Stream කරන විට Viewers ලාට ESP එක නොපෙනෙන Stream Mode අන්තර්ගතයි. (iOS Version එක දැනට සංවර්ධනය වෙමින් පවතී — Coming Soon).",
+        description: "Mobile Android ක්‍රීඩකයින් සඳහා වන බලගතු Aimbot සහ Visual Awareness ESP Panel එක. TikTok / YouTube Live Stream කරන විට Viewers ලාට නොපෙනෙන Stream Proof Mode සහිතයි.",
         features: [
-            "🎯 Enemy Location ESP (Radar & 3D Box)",
+            "🎯 Smart Aimbot & Fast Headshot Target Lock",
+            "👁️ Full ESP: Line, Box, Distance, Name & Health Bar",
             "📺 Stream Mode Support (TikTok / YouTube Live වලදී නොපෙනේ)",
-            "📱 Android Compatible (All Android 9 to 15 Versions)",
-            "⏳ Apple iOS: COMING SOON (දැනට සංවර්ධනය වෙමින් පවතී)",
-            "⚙️ Configurable Distance, Line & Enemy HP",
-            "🔄 Regular Updates & Compatibility Guarantees",
-            "🔐 100% Private, Secure & Undetected Code",
-            "🛠️ Step-by-Step Installation Guidance & Support"
+            "📱 All Android Versions Support (Android 9 to 15)",
+            "🛡️ Safe Memory Bypass & Anti-Blacklist Protection",
+            "⚙️ Configurable FOV, Sensitivity & Aim Distance",
+            "🔄 Regular Game Updates & 24/7 Technical Support"
         ],
         pricing: [
-            { duration: "1 OBB Update Valid (2 Months)", price: 2000, popular: true }
+            { duration: "1 Month License", price: 2500, popular: true }
         ],
-        compatibility: ["Android 9 to 15 (Samsung, Xiaomi, Vivo, Oppo, Realme)", "Non-Root & Root Safe", "iOS Version Coming Soon ⏳"]
+        compatibility: ["Android 9 to 15 (Samsung, Xiaomi, Vivo, Oppo, Realme)", "Non-Root & Root Safe"]
+    },
+    {
+        id: "mobile-aimbot-esp-ios",
+        name: "MOBILE AIM BOT + ESP (iOS)",
+        tagline: "PREMIUM AIMBOT & ESP VISUAL RADAR FOR APPLE iPHONE & iPAD",
+        badge: "🍎 APPLE iOS PANEL",
+        badgeColor: "bg-purple-500/20 text-purple-300 border-purple-500/40",
+        themeColor: "red",
+        category: "mobile",
+        deviceTypes: ["ios", "mobile", "apple"],
+        deviceIcon: "🍎",
+        platform: "Apple iOS (iPhone / iPad)",
+        image: "assets/images/mobile-esp.jpg",
+        description: "iPhone සහ iPad ක්‍රීඩකයින් සඳහාම විශේෂයෙන් සකසන ලද Aimbot සහ ESP Panel එක. Jailbreak අනවශ්‍ය වන අතර Direct iOS Certificate මගින් පහසුවෙන් Install කළ හැක.",
+        features: [
+            "🎯 iOS Precision Aimbot & Auto Headshot Snap",
+            "👁️ 3D ESP Box, Skeleton & Enemy Location Radar",
+            "📺 Stream Proof Mode (Screen Recording / Live Stream Safe)",
+            "🍏 Compatible with iOS 15, 16, 17 & iOS 18+",
+            "🚫 No Jailbreak Required (Direct Certificate Install)",
+            "🛡️ Private Certificate & Anti-Revoke Protection",
+            "🛠️ Video Setup Guide & Full Admin Remote Guidance"
+        ],
+        pricing: [
+            { duration: "1 Month License", price: 3000, popular: true }
+        ],
+        compatibility: ["iPhone 8 to iPhone 16 Pro Max", "iPad Air / Pro / Mini", "iOS 15 to iOS 18+ (No Jailbreak)"]
     }
 ];
 
@@ -269,9 +322,9 @@ const TRANSLATIONS = {
         bNavBank: "ගෙවීම්",
         bNavTrack: "Track",
         bNavSupport: "සහාය",
-        deviceNoticeAndroid: "Android Phone එකක් හඳුනාගන්නා ලදී — LUKZI Mobile Optimizer & Mobile ESP 100% Non-Root Safe!",
-        deviceNoticeIos: "Apple iOS (iPhone/iPad) හඳුනාගන්නා ලදී — Mobile ESP with Stream Mode & Sensi 100% ක්‍රියාත්මකයි.",
-        deviceNoticePc: "PC / Laptop එකක් හඳුනාගන්නා ලදී — Mouse Bot Pro AI (Zero Ban) & Internal Panel V4 ගැලපේ."
+        deviceNoticeAndroid: "Android Phone එකක් හඳුනාගන්නා ලදී — LUKZI Mobile Optimizer & Mobile Aimbot + ESP 100% Non-Root Safe!",
+        deviceNoticeIos: "Apple iOS (iPhone/iPad) හඳුනාගන්නා ලදී — Mobile Aimbot + ESP (iOS) 100% No Jailbreak ක්‍රියාත්මකයි.",
+        deviceNoticePc: "PC / Laptop එකක් හඳුනාගන්නා ලදී — Mouse Bot Pro, Internal Panel V4 & PC Optimize Pack ගැලපේ."
     },
     en: {
         announcement: "🔥 Safe Memory Bypass • Real Damage • No Fake Damage • Fast Activation",
@@ -347,9 +400,9 @@ const TRANSLATIONS = {
         bNavBank: "Bank Details",
         bNavTrack: "Track Order",
         bNavSupport: "Support",
-        deviceNoticeAndroid: "Android Device Detected — LUKZI Mobile Optimizer & Mobile ESP 100% Non-Root Safe!",
-        deviceNoticeIos: "Apple iOS Detected — Mobile ESP with Stream Mode & Touch Sensi fully compatible.",
-        deviceNoticePc: "PC / Laptop Detected — Mouse Bot Pro AI & Internal Panel V4 ready for LDPlayer/BlueStacks."
+        deviceNoticeAndroid: "Android Device Detected — LUKZI Mobile Optimizer & Mobile Aimbot + ESP 100% Non-Root Safe!",
+        deviceNoticeIos: "Apple iOS Detected — Mobile Aimbot + ESP (iOS) No Jailbreak fully compatible.",
+        deviceNoticePc: "PC / Laptop Detected — Mouse Bot Pro, Internal Panel V4 & PC Optimize Pack ready."
     },
     ta: {
         announcement: "🔥 Safe Memory Bypass • Real Damage • No Fake Damage • Fast Activation",
@@ -1793,17 +1846,17 @@ function initPromoCountdown() {
 
 // Live Social Proof Purchase Notifications
 const RECENT_PURCHASES = [
-    { name: "Kasun D.", city: "Kandy", product: "Lukzi Mobile Optimizer (1 Month)", time: "1 min ago" },
-    { name: "Malith R.", city: "Kurunegala", product: "Lukzi Mobile Optimizer (Lifetime VIP)", time: "3 mins ago" },
-    { name: "Dimuth S.", city: "Colombo", product: "Internal Panel V4 (7 Days)", time: "5 mins ago" },
-    { name: "Nimesh K.", city: "Gampaha", product: "Lukzi Mobile Optimizer (1 OBB)", time: "7 mins ago" },
-    { name: "Sahan P.", city: "Galle", product: "Lukzi Mobile Optimizer (Lifetime VIP)", time: "9 mins ago" },
-    { name: "Chathura M.", city: "Matara", product: "Mouse Bot Pro (1 Month)", time: "11 mins ago" },
-    { name: "Heshan T.", city: "Negombo", product: "Lukzi Mobile Optimizer (1 Month)", time: "13 mins ago" },
-    { name: "Ravindu B.", city: "Kalutara", product: "Lukzi Mobile Optimizer (Lifetime VIP)", time: "15 mins ago" },
-    { name: "Tharindu N.", city: "Anuradhapura", product: "Lukzi Mobile Optimizer (1 Month)", time: "16 mins ago" },
-    { name: "Danushka L.", city: "Ratnapura", product: "Internal Panel V4 (7 Days)", time: "18 mins ago" },
-    { name: "Janith W.", city: "Badulla", product: "Lukzi Mobile Optimizer (Lifetime VIP)", time: "20 mins ago" }
+    { name: "Kasun D.", city: "Kandy", product: "Mobile Optimizer APK (1 Month)", time: "1 min ago" },
+    { name: "Malith R.", city: "Kurunegala", product: "Mobile Optimizer APK (Lifetime VIP)", time: "3 mins ago" },
+    { name: "Dimuth S.", city: "Colombo", product: "Internal Panel V4 (1 Month)", time: "5 mins ago" },
+    { name: "Nimesh K.", city: "Gampaha", product: "Mouse Bot Pro (1 Month)", time: "7 mins ago" },
+    { name: "Sahan P.", city: "Galle", product: "PC Optimize + Regedit Pack (Lifetime)", time: "9 mins ago" },
+    { name: "Chathura M.", city: "Matara", product: "Internal Panel V4 (Lifetime VIP)", time: "11 mins ago" },
+    { name: "Heshan T.", city: "Negombo", product: "Mobile Aimbot + ESP Android (1 Month)", time: "13 mins ago" },
+    { name: "Ravindu B.", city: "Kalutara", product: "Mobile Aimbot + ESP iOS (1 Month)", time: "15 mins ago" },
+    { name: "Tharindu N.", city: "Anuradhapura", product: "Mouse Bot Pro (Lifetime VIP)", time: "16 mins ago" },
+    { name: "Danushka L.", city: "Ratnapura", product: "Mobile Optimizer APK (1 Month)", time: "18 mins ago" },
+    { name: "Janith W.", city: "Badulla", product: "PC Optimize + Regedit Pack (Lifetime)", time: "20 mins ago" }
 ];
 
 let currentSaleIdx = 0;
