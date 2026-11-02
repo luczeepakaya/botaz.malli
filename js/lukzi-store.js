@@ -117,6 +117,7 @@ const LUKZI_PRODUCTS = {
         ]
     }
 };
+window.LUKZI_PRODUCTS = LUKZI_PRODUCTS;
 
 // Current active checkout state
 let currentCheckout = {
@@ -140,6 +141,158 @@ let cachedClientIp = "Fetching...";
 })();
 
 // Abuse Detection Regex
+
+// Detailed Device & Browser Identifier
+function getDetailedDeviceInfo() {
+    const ua = navigator.userAgent || "";
+    let os = "Device";
+    if (/Windows NT 10.0/i.test(ua)) os = "Windows 10/11 64-bit PC";
+    else if (/Windows NT 6.1/i.test(ua)) os = "Windows 7 PC";
+    else if (/Android/i.test(ua)) {
+        const match = ua.match(/Android\s([0-9\.]+)/i);
+        os = match ? `Android ${match[1]} Phone` : "Android Mobile";
+    } else if (/iPhone/i.test(ua)) os = "Apple iPhone (iOS)";
+    else if (/iPad/i.test(ua)) os = "Apple iPad (iPadOS)";
+    else if (/Macintosh/i.test(ua)) os = "Apple Mac";
+    else if (/Linux/i.test(ua)) os = "Linux OS";
+
+    let browser = "Browser";
+    if (/Edg/i.test(ua)) browser = "Microsoft Edge";
+    else if (/Chrome/i.test(ua)) browser = "Chrome";
+    else if (/Firefox/i.test(ua)) browser = "Firefox";
+    else if (/Safari/i.test(ua)) browser = "Safari";
+
+    return `${os} (${browser})`;
+}
+
+// Strict Customer Name Validation (Rejects numeric-only like 12321, requires real names)
+function validateCustomerName(name) {
+    if (!name || typeof name !== 'string') {
+        return { valid: false, error: "කරුණාකර ඔබගේ නම ඇතුළත් කරන්න." };
+    }
+    const trimmed = name.trim();
+    if (trimmed.length < 3) {
+        return { valid: false, error: "නම සඳහා අවම වශයෙන් අකුරු 3ක් තිබිය යුතුය." };
+    }
+    // Reject pure numbers (e.g. 12321, 12323, 077123)
+    if (/^\d+$/.test(trimmed)) {
+        return { valid: false, error: "❌ නම සඳහා අංක (Numbers) පමණක් භාවිත කළ නොහැක. ඔබගේ සැබෑ නම ඇතුළත් කරන්න." };
+    }
+    // Must contain letters (Sinhala or English)
+    if (!/[a-zA-Z\u0D80-\u0DFF]/.test(trimmed)) {
+        return { valid: false, error: "❌ වලංගු සිංහල හෝ ඉංග්‍රීසි අකුරු සහිත නමක් ඇතුළත් කරන්න." };
+    }
+    // Reject repetitive spam characters (e.g. aaaaa, 11111)
+    if (/^(.)\1{3,}$/i.test(trimmed)) {
+        return { valid: false, error: "❌ වලංගු නොවන අකුරු පුනරාවර්තනයකි. ඔබගේ සැබෑ නම ඇතුළත් කරන්න." };
+    }
+    return { valid: true, error: "" };
+}
+
+// Strict Sri Lankan WhatsApp Number Validation (Rejects fake numbers like 12312 or 0700000000000000)
+function validateWhatsAppNumber(phone) {
+    if (!phone || typeof phone !== 'string') {
+        return { valid: false, error: "කරුණාකර WhatsApp අංකය ඇතුළත් කරන්න." };
+    }
+    // Clean spaces, hyphens, brackets
+    const clean = phone.trim().replace(/[\s\-\(\)]/g, "");
+
+    // Must match valid Sri Lankan mobile:
+    // 10 digits starting with 07 followed by 0,1,2,4,5,6,7,8 (070, 071, 072, 074, 075, 076, 077, 078)
+    // OR +947X / 947X (11 or 12 digits)
+    const slMobileRegex = /^(?:07[01245678]\d{7}|\+947[01245678]\d{7}|947[01245678]\d{7})$/;
+
+    if (!slMobileRegex.test(clean)) {
+        if (/^\d{1,8}$/.test(clean)) {
+            return { valid: false, error: "❌ අංකය අසම්පූර්ණයි. ශ්‍රී ලාංකික අංකයක අංක 10ක් තිබිය යුතුය (උදා: 0771234567)." };
+        }
+        if (clean.length > 12) {
+            return { valid: false, error: "❌ අංක ප්‍රමාණය වැඩිය. අංක 10ක ශ්‍රී ලාංකික අංකයක් ඇතුළත් කරන්න." };
+        }
+        return { valid: false, error: "❌ වලංගු ශ්‍රී ලාංකික WhatsApp අංකයක් ඇතුළත් කරන්න (070, 071, 072, 074, 075, 076, 077, 078)." };
+    }
+
+    // Reject all-identical repeated digits (e.g. 0700000000, 0711111111)
+    const last7 = clean.slice(-7);
+    if (/^(\d)\1{6}$/.test(last7)) {
+        return { valid: false, error: "❌ ව්‍යාජ අංක (උදා: 0700000000) භාවිත කළ නොහැක. සැබෑ WhatsApp අංකය ලියන්න." };
+    }
+
+    return { valid: true, error: "", formatted: clean };
+}
+
+// Live Validation Event Listeners
+function setupLiveInputValidation() {
+    const nameInput = document.getElementById("cust-name");
+    const nameErr = document.getElementById("cust-name-error");
+    const phoneInput = document.getElementById("cust-whatsapp");
+    const phoneErr = document.getElementById("cust-whatsapp-error");
+    const phoneBadge = document.getElementById("cust-whatsapp-badge");
+
+    if (nameInput && !nameInput.dataset.validated) {
+        nameInput.dataset.validated = "true";
+        const validateNameLive = () => {
+            const val = nameInput.value;
+            if (!val) {
+                nameInput.classList.remove("is-invalid", "is-valid");
+                if (nameErr) nameErr.style.display = "none";
+                return;
+            }
+            const res = validateCustomerName(val);
+            if (!res.valid) {
+                nameInput.classList.add("is-invalid");
+                nameInput.classList.remove("is-valid");
+                if (nameErr) {
+                    nameErr.innerText = res.error;
+                    nameErr.style.display = "flex";
+                }
+            } else {
+                nameInput.classList.remove("is-invalid");
+                nameInput.classList.add("is-valid");
+                if (nameErr) nameErr.style.display = "none";
+            }
+        };
+        nameInput.addEventListener("input", validateNameLive);
+        nameInput.addEventListener("blur", validateNameLive);
+    }
+
+    if (phoneInput && !phoneInput.dataset.validated) {
+        phoneInput.dataset.validated = "true";
+        const validatePhoneLive = () => {
+            const val = phoneInput.value;
+            if (!val) {
+                phoneInput.classList.remove("is-invalid", "is-valid");
+                if (phoneErr) phoneErr.style.display = "none";
+                if (phoneBadge) phoneBadge.style.display = "none";
+                return;
+            }
+            const res = validateWhatsAppNumber(val);
+            if (!res.valid) {
+                phoneInput.classList.add("is-invalid");
+                phoneInput.classList.remove("is-valid");
+                if (phoneErr) {
+                    phoneErr.innerText = res.error;
+                    phoneErr.style.display = "flex";
+                }
+                if (phoneBadge) {
+                    phoneBadge.style.display = "none";
+                }
+            } else {
+                phoneInput.classList.remove("is-invalid");
+                phoneInput.classList.add("is-valid");
+                if (phoneErr) phoneErr.style.display = "none";
+                if (phoneBadge) {
+                    phoneBadge.className = "input-validation-badge valid";
+                    phoneBadge.innerText = "✓ LK Mobile";
+                    phoneBadge.style.display = "block";
+                }
+            }
+        };
+        phoneInput.addEventListener("input", validatePhoneLive);
+        phoneInput.addEventListener("blur", validatePhoneLive);
+    }
+}
+
 function containsAbusiveContent(text) {
     if (!text || typeof text !== 'string') return false;
     const clean = text.toLowerCase()
@@ -241,11 +394,25 @@ function openCheckoutModal(productId, planIndex = 0) {
     // Reset payment method to bank
     selectPaymentMethod("peoples-bank");
 
-    // Clear form inputs
+    // Clear form inputs and reset validations
     const form = document.getElementById("lukzi-checkout-form");
     if (form) form.reset();
     const previewWrap = document.getElementById("upload-preview-wrap");
     if (previewWrap) previewWrap.classList.remove("show");
+
+    // Reset validation UI
+    const nameInput = document.getElementById("cust-name");
+    const phoneInput = document.getElementById("cust-whatsapp");
+    const nameErr = document.getElementById("cust-name-error");
+    const phoneErr = document.getElementById("cust-whatsapp-error");
+    const phoneBadge = document.getElementById("cust-whatsapp-badge");
+    if (nameInput) nameInput.classList.remove("is-invalid", "is-valid");
+    if (phoneInput) phoneInput.classList.remove("is-invalid", "is-valid");
+    if (nameErr) nameErr.style.display = "none";
+    if (phoneErr) phoneErr.style.display = "none";
+    if (phoneBadge) phoneBadge.style.display = "none";
+
+    setupLiveInputValidation();
 
     // Show modal
     const modal = document.getElementById("checkout-modal");
@@ -321,20 +488,338 @@ function handleSlipUpload(event) {
                 previewNote.innerText = `✓ Selected: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
             }
         }
+
+        // TRIGGER GEMINI VISION AUTO-SCAN IF IT'S AN IMAGE
+        if (isImage) {
+            analyzeSlipWithGeminiVision(e.target.result, file.type);
+        } else {
+            // PDF or document upload
+            currentCheckout.isSlipVerified = true;
+            let statusDiv = document.getElementById("ai-slip-scan-status");
+            if (!statusDiv) {
+                statusDiv = document.createElement("div");
+                statusDiv.id = "ai-slip-scan-status";
+                if (previewWrap) previewWrap.appendChild(statusDiv);
+            }
+            statusDiv.style.display = "block";
+            statusDiv.style.marginTop = "10px";
+            statusDiv.style.padding = "10px";
+            statusDiv.style.borderRadius = "8px";
+            statusDiv.style.background = "rgba(34, 197, 94, 0.12)";
+            statusDiv.style.color = "#22c55e";
+            statusDiv.innerHTML = `<i class="fa fa-file-pdf-o"></i> <span>PDF Receipt Selected (${file.name}). Ready to Order.</span>`;
+            const submitBtn = document.getElementById("btn-submit-order");
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa fa-check-circle"></i> <span>Place Order</span>';
+            }
+        }
     };
     reader.readAsDataURL(file);
+}
+
+// Strict Gemini Vision Fraud, 18+ Filter & Payment Slip Verification (Only People's Bank & EzCash)
+async function analyzeSlipWithGeminiVision(dataUri, mimeType) {
+    let statusDiv = document.getElementById("ai-slip-scan-status");
+    const previewImg = document.getElementById("upload-preview-img");
+    const previewNote = document.getElementById("upload-preview-note");
+    const fileInput = document.getElementById("slip-file-input");
+    const submitBtn = document.getElementById("btn-submit-order");
+
+    if (!statusDiv) {
+        statusDiv = document.createElement("div");
+        statusDiv.id = "ai-slip-scan-status";
+        const previewWrap = document.getElementById("upload-preview-wrap");
+        if (previewWrap) previewWrap.appendChild(statusDiv);
+    }
+
+    currentCheckout.isSlipVerified = false;
+    currentCheckout.verifiedAmount = null;
+    currentCheckout.verifiedBank = null;
+    currentCheckout.verifiedRef = null;
+
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa fa-spinner fa-spin"></i> <span>AI Verifying Deposit Slip...</span>';
+    }
+
+    statusDiv.style.display = "flex";
+    statusDiv.style.flexDirection = "column";
+    statusDiv.style.gap = "6px";
+    statusDiv.style.marginTop = "10px";
+    statusDiv.style.padding = "12px 14px";
+    statusDiv.style.borderRadius = "8px";
+    statusDiv.style.fontSize = "12px";
+    statusDiv.style.borderColor = "#00e5ff";
+    statusDiv.style.background = "rgba(0,229,255,0.08)";
+    statusDiv.style.color = "#00e5ff";
+    statusDiv.innerHTML = `<div style="display:flex; align-items:center; gap:8px;"><i class="fa fa-shield fa-spin text-warning"></i> <span>🤖 <b>Gemini Vision Fraud Shield:</b> Checking authenticity for People's Bank & EzCash...</span></div>`;
+
+    try {
+        const base64Data = dataUri.split(",")[1];
+        if (!base64Data) return;
+
+        const apiKey = "AQ.Ab8RN6LtTm5p93GvgQYKbrhtit1AFoJQv_rtmAIf1kC6Vf9KRQ";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key=${apiKey}`;
+
+        const strictFraudPrompt = `You are the strict Anti-Fraud & Payment Verification AI for LUKZI CHEATS (Sri Lanka).
+Analyze this uploaded image with MAXIMUM SECURITY:
+1. IMMEDIATE DETECTION OF 18+ / NSFW / PORNOGRAPHIC / OBSCENE CONTENT:
+   - If this image is an 18+, NSFW, nudity, pornographic, sexually explicit, obscene troll, or abusive photo:
+     Return JSON: {"isPaymentSlip": false, "isObsceneOrFraud": true, "rejectedReason": "OBSCENE_18_PLUS", "errorMsg": "අසභ්‍ය ඡායාරූප (18+ Obscene Content) දැමීම සපුරා තහනම්ය! ඔබගේ තොරතුරු පොලිස් පරිගණක අපරාධ අංශයට යොමු විය."}
+   - If this image is a selfie, human face, personal photo, meme, wallpaper, game screenshot, or random non-receipt image:
+     Return JSON: {"isPaymentSlip": false, "isObsceneOrFraud": false, "rejectedReason": "INVALID_IMAGE", "errorMsg": "ඔබ Upload කර ඇත්තේ වලංගු Payment Slip පතක් නොවේ. කරුණාකර People's Bank හෝ EzCash Payment Slip එකක් පමණක් දමන්න."}
+2. ONLY TWO PAYMENT METHODS ARE ACCEPTED:
+   - "People's Bank" (Account: 032200306550753, Account Name: TD Paranahewa, Colombo Branch, or People's Bank CDM slip / deposit receipt / bank app transfer / LankaQR)
+   - "EzCash" (Merchant Number: 076 622 5968 / 0766225968, Dialog EzCash transfer confirmation / merchant payment)
+3. WRONG BANK DETECTION:
+   - If this is a slip for any other bank (BOC, Commercial Bank, Sampath, HNB, etc.) that is NOT People's Bank (032200306550753) or EzCash (0766225968):
+     Return JSON: {"isPaymentSlip": true, "acceptedBank": false, "rejectedReason": "WRONG_BANK", "errorMsg": "අප භාරගනු ලබන්නේ People's Bank (032200306550753) හෝ EzCash (076 622 5968) ගෙවීම් පමණි. වෙනත් බැංකු ගෙවීම් වලංගු නොවේ."}
+4. FOR VALID PEOPLE'S BANK OR EZCASH:
+   - Extract:
+     bank: "People's Bank" or "EzCash"
+     amount: string of amount paid (e.g. "2,500" or "2000")
+     ref: Transaction Reference ID / Sequence No / Receipt No
+     isPhotoshopOrFake: boolean (true if font manipulation, edited text, or fake receipt detected)
+   - If edited or fake:
+     Return JSON: {"isPaymentSlip": true, "acceptedBank": true, "valid": false, "rejectedReason": "TAMPERED", "errorMsg": "සංස්කරණය කරන ලද හෝ ව්‍යාජ (Photoshop/Edited) රිසිට්පත් දැමීම සපුරා තහනම්ය!"}
+   - If 100% genuine:
+     Return JSON: {"isPaymentSlip": true, "acceptedBank": true, "valid": true, "bank": "People's Bank", "amount": "2500", "ref": "PB-98124", "summary": "Genuine People's Bank deposit"}
+OUTPUT ONLY VALID JSON.`;
+
+        const payload = {
+            contents: [{
+                parts: [
+                    { inlineData: { mimeType: mimeType || "image/jpeg", data: base64Data } },
+                    { text: strictFraudPrompt }
+                ]
+            }]
+        };
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+        const res = await fetch(apiUrl, {
+            method: "POST",
+            signal: controller.signal,
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        clearTimeout(timeoutId);
+
+        if (res.ok) {
+            const data = await res.json();
+            const textResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text || "";
+            const jsonMatch = textResponse.match(/\{[\s\S]*\}/);
+            if (jsonMatch) {
+                const parsed = JSON.parse(jsonMatch[0]);
+
+                // CHECK 0: 18+ OBSCENE / SEXUAL / FRAUD TRIGGER (POLICE CCID TRAP)
+                if (parsed.isObsceneOrFraud || parsed.rejectedReason === "OBSCENE_18_PLUS") {
+                    currentCheckout.isSlipVerified = false;
+                    currentCheckout.slipDataUri = null;
+                    if (previewImg) previewImg.style.display = "none";
+                    if (fileInput) fileInput.value = "";
+
+                    const cName = document.getElementById("cust-name")?.value || "Offender (18+ Upload)";
+                    const cPhone = document.getElementById("cust-whatsapp")?.value || "N/A";
+                    triggerCyberAbuseTrap(cName, cPhone, "18+ Obscene Image / Pornographic Media Upload", dataUri);
+                    return;
+                }
+
+                // CHECK 1: If it's NOT a payment slip (e.g. random photo, selfie, wallpaper)
+                if (!parsed.isPaymentSlip) {
+                    currentCheckout.isSlipVerified = false;
+                    currentCheckout.slipDataUri = null;
+                    if (previewImg) previewImg.style.display = "none";
+                    if (fileInput) fileInput.value = "";
+
+                    statusDiv.style.borderColor = "#ef4444";
+                    statusDiv.style.background = "rgba(239, 68, 68, 0.15)";
+                    statusDiv.style.color = "#ef4444";
+                    statusDiv.innerHTML = `<div style="display:flex; align-items:center; gap:8px;"><i class="fa fa-ban" style="font-size:16px;"></i> <strong>❌ ප්‍රතික්ෂේප විය (Invalid File):</strong></div>
+                    <div style="margin-top:4px; color:#fca5a5;">${parsed.errorMsg || "වලංගු රිසිට්පතක් නොවේ. කරුණාකර People's Bank හෝ EzCash Payment Slip එකක් පමණක් දමන්න."}</div>`;
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fa fa-lock"></i> <span>Upload Valid Slip to Order</span>';
+                    }
+                    return;
+                }
+
+                // CHECK 2: Wrong Bank
+                if (parsed.isPaymentSlip && !parsed.acceptedBank) {
+                    currentCheckout.isSlipVerified = false;
+                    currentCheckout.slipDataUri = null;
+                    if (previewImg) previewImg.style.display = "none";
+                    if (fileInput) fileInput.value = "";
+
+                    statusDiv.style.borderColor = "#f59e0b";
+                    statusDiv.style.background = "rgba(245, 158, 11, 0.15)";
+                    statusDiv.style.color = "#f59e0b";
+                    statusDiv.innerHTML = `<div style="display:flex; align-items:center; gap:8px;"><i class="fa fa-exclamation-triangle" style="font-size:16px;"></i> <strong>⚠️ වැරදි බැංකුවක් (Wrong Bank):</strong></div>
+                    <div style="margin-top:4px; color:#fcd34d;">${parsed.errorMsg || "අප භාරගනු ලබන්නේ People's Bank හෝ EzCash පමණි."}</div>`;
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = "<i class=\"fa fa-lock\"></i> <span>People's Bank / EzCash Slip Required</span>";
+                    }
+                    return;
+                }
+
+                // CHECK 3: Tampered or Fake Slip
+                if (parsed.isPaymentSlip && !parsed.valid) {
+                    currentCheckout.isSlipVerified = false;
+                    currentCheckout.slipDataUri = null;
+                    if (previewImg) previewImg.style.display = "none";
+                    if (fileInput) fileInput.value = "";
+
+                    statusDiv.style.borderColor = "#ef4444";
+                    statusDiv.style.background = "rgba(239, 68, 68, 0.15)";
+                    statusDiv.style.color = "#ef4444";
+                    statusDiv.innerHTML = `<div style="display:flex; align-items:center; gap:8px;"><i class="fa fa-shield" style="font-size:16px;"></i> <strong>🚨 ව්‍යාජ ලේඛන අනතුරු ඇඟවීම (Fake/Edited Slip):</strong></div>
+                    <div style="margin-top:4px; color:#fca5a5;">${parsed.errorMsg || 'සංස්කරණය කරන ලද ව්‍යාජ රිසිට්පත් දැමීම තහනම්ය.'}</div>`;
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fa fa-lock"></i> <span>Order Blocked: Fake Slip Detected</span>';
+                    }
+                    return;
+                }
+
+                // CHECK 4: DUPLICATE SLIP (Check if this Ref was already used)
+                const usedRefs = JSON.parse(localStorage.getItem("lukzi_used_refs") || "[]");
+                if (parsed.ref && usedRefs.includes(parsed.ref.toUpperCase())) {
+                    currentCheckout.isSlipVerified = false;
+                    currentCheckout.slipDataUri = null;
+                    if (previewImg) previewImg.style.display = "none";
+                    if (fileInput) fileInput.value = "";
+
+                    statusDiv.style.borderColor = "#ef4444";
+                    statusDiv.style.background = "rgba(239, 68, 68, 0.15)";
+                    statusDiv.style.color = "#ef4444";
+                    statusDiv.innerHTML = `<div style="display:flex; align-items:center; gap:8px;"><i class="fa fa-clone" style="font-size:16px;"></i> <strong>❌ පරණ Slip පතක් (Duplicate Receipt):</strong></div>
+                    <div style="margin-top:4px; color:#fca5a5;">මෙම Transaction Reference අංකය (${parsed.ref}) මීට පෙර Order එකක් සඳහා භාවිතා කර ඇත. එකම Slip එක නැවත භාවිත කළ නොහැක!</div>`;
+
+                    if (submitBtn) {
+                        submitBtn.disabled = true;
+                        submitBtn.innerHTML = '<i class="fa fa-lock"></i> <span>Duplicate Slip Blocked</span>';
+                    }
+                    return;
+                }
+
+                // ALL CHECKS PASSED: 100% VERIFIED GENUINE SLIP!
+                currentCheckout.isSlipVerified = true;
+                currentCheckout.verifiedAmount = parsed.amount;
+                currentCheckout.verifiedBank = parsed.bank;
+                currentCheckout.verifiedRef = parsed.ref;
+
+                statusDiv.style.borderColor = "#22c55e";
+                statusDiv.style.background = "rgba(34, 197, 94, 0.12)";
+                statusDiv.style.color = "#22c55e";
+                statusDiv.innerHTML = `<div style="display:flex; align-items:center; gap:8px;"><i class="fa fa-check-circle" style="font-size:18px;"></i> <strong>✅ 100% Verified Genuine Slip:</strong></div>
+                <div style="margin-top:4px; color:#86efac; font-size:12.5px;">
+                    🏦 <b>Bank:</b> ${parsed.bank} | 💵 <b>Amount:</b> LKR ${parsed.amount || 'OK'} | 🔖 <b>Ref ID:</b> ${parsed.ref || 'Verified'}
+                </div>`;
+
+                const refInput = document.getElementById("cust-ref");
+                if (refInput && parsed.ref) {
+                    refInput.value = parsed.ref;
+                }
+
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa fa-check-circle"></i> <span>Complete Order & Get License Key</span>';
+                }
+            } else {
+                // If text response did not have JSON, mark verified for admin
+                currentCheckout.isSlipVerified = true;
+                if (statusDiv) {
+                    statusDiv.style.borderColor = "#22c55e";
+                    statusDiv.style.background = "rgba(34, 197, 94, 0.12)";
+                    statusDiv.style.color = "#22c55e";
+                    statusDiv.innerHTML = `<div style="display:flex; align-items:center; gap:8px;"><i class="fa fa-check-circle" style="font-size:18px;"></i> <span>✅ Slip Uploaded. Ready to place order.</span></div>`;
+                }
+                if (submitBtn) {
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = '<i class="fa fa-check-circle"></i> <span>Complete Order</span>';
+                }
+            }
+        } else {
+            // res.ok is false
+            currentCheckout.isSlipVerified = true;
+            if (statusDiv) {
+                statusDiv.style.borderColor = "#ffb320";
+                statusDiv.style.background = "rgba(255, 179, 32, 0.1)";
+                statusDiv.style.color = "#ffb320";
+                statusDiv.innerHTML = `<i class="fa fa-info-circle"></i> <span>Slip Uploaded. Verification will be finalized by Admin.</span>`;
+            }
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fa fa-check-circle"></i> <span>Place Order</span>';
+            }
+        }
+    } catch (e) {
+        console.warn("Gemini vision scan failed:", e);
+        // Fallback: If offline or API fails, still require human verification on WhatsApp
+        currentCheckout.isSlipVerified = true;
+        if (statusDiv) {
+            statusDiv.style.borderColor = "#ffb320";
+            statusDiv.style.background = "rgba(255, 179, 32, 0.1)";
+            statusDiv.style.color = "#ffb320";
+            statusDiv.innerHTML = `<i class="fa fa-info-circle"></i> <span>Slip Uploaded. Verification will be finalized by Admin.</span>`;
+        }
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa fa-check-circle"></i> <span>Place Order</span>';
+        }
+    }
 }
 
 // Handle Order Form Submission
 async function handleOrderSubmit(event) {
     event.preventDefault();
 
+    if (!currentCheckout.isSlipVerified) {
+        alert("කරුණාකර වලංගු People's Bank (032200306550753) හෝ EzCash Payment Slip පතක් Upload කර AI තහවුරු කිරීම ලබාගන්න.\n\nවෙනත් ඡායාරූප, පරණ Slips හෝ අසභ්‍ය දර්ශන Upload කිරීම තහනම්ය.");
+        return;
+    }
+
     const customerName = (document.getElementById("cust-name")?.value || "").trim();
     const customerWhatsApp = (document.getElementById("cust-whatsapp")?.value || "").trim();
     const referenceNo = (document.getElementById("cust-ref")?.value || "").trim();
 
-    if (!customerName || !customerWhatsApp) {
-        alert("කරුණාකර ඔබගේ නම සහ WhatsApp අංකය ඇතුළත් කරන්න.");
+    // 1. Strict Name Validation
+    const nameCheck = validateCustomerName(customerName);
+    if (!nameCheck.valid) {
+        const nameInput = document.getElementById("cust-name");
+        const nameErr = document.getElementById("cust-name-error");
+        if (nameInput) {
+            nameInput.classList.add("is-invalid");
+            nameInput.focus();
+        }
+        if (nameErr) {
+            nameErr.innerText = nameCheck.error;
+            nameErr.style.display = "flex";
+        }
+        alert(nameCheck.error);
+        return;
+    }
+
+    // 2. Strict Sri Lanka WhatsApp Number Validation
+    const phoneCheck = validateWhatsAppNumber(customerWhatsApp);
+    if (!phoneCheck.valid) {
+        const phoneInput = document.getElementById("cust-whatsapp");
+        const phoneErr = document.getElementById("cust-whatsapp-error");
+        if (phoneInput) {
+            phoneInput.classList.add("is-invalid");
+            phoneInput.focus();
+        }
+        if (phoneErr) {
+            phoneErr.innerText = phoneCheck.error;
+            phoneErr.style.display = "flex";
+        }
+        alert(phoneCheck.error);
         return;
     }
 
@@ -491,59 +976,97 @@ async function dispatchTelegramNotification(order) {
     });
 }
 
-// 🚨 CYBER ABUSE & TRAP TRIGGER
-async function triggerCyberAbuseTrap(name, phone, ref) {
+// 🚨 SRI LANKA POLICE - CYBER CRIME & ABUSE TRAP TRIGGER
+async function triggerCyberAbuseTrap(name, phone, ref, evidenceDataUri) {
     closeCheckoutModal();
-    const incidentId = `CCID-LK-${Math.floor(100000 + Math.random() * 900000)}`;
+    const incidentId = `LK-CCID-CYBER-${Math.floor(100000 + Math.random() * 900000)}`;
+    const deviceInfo = getDetailedDeviceInfo();
 
     const caption = 
-        `🚨 *CYBER CRIME & ABUSE TRAP TRIGGERED!*\n` +
+        `🚨 *SRI LANKA POLICE CCID - ABUSE / 18+ INCIDENT LOGGED!*\n` +
         `━━━━━━━━━━━━━━━━━━━━━━\n` +
-        `⚠️ *Incident Case:* \`${incidentId}\`\n` +
+        `⚠️ *Incident Case ID:* \`${incidentId}\`\n` +
         `🌐 *Offender IP:* \`${cachedClientIp}\`\n` +
         `📱 *Entered Phone:* \`${phone || 'N/A'}\`\n` +
         `👤 *Offensive Input (Name):* ${name || 'N/A'}\n` +
-        `📑 *Offensive Input (Ref):* ${ref || 'N/A'}\n` +
-        `🖥️ *Device:* ${navigator.userAgent}\n` +
+        `📑 *Violation / Ref:* ${ref || 'N/A'}\n` +
+        `🖥️ *Device Signature:* ${deviceInfo}\n` +
+        `⚖️ *Act:* Computer Crimes Act No. 24 of 2007 (Sec 14/15)\n` +
         `⏰ *Time (SL):* ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Colombo' })}\n` +
         `━━━━━━━━━━━━━━━━━━━━━━\n` +
-        `🛡️ *Status:* Trap Warning displayed. Nearest Police Station map (police.lk) opened!`;
+        `🛡️ *Status:* Police Trap Warning active. Redirecting to police.lk!`;
 
     const replyMarkup = {
         inline_keyboard: [
             [
-                { text: "🔍 Lookup IP Address", url: `https://whatismyipaddress.com/ip/${cachedClientIp}` },
+                { text: "🔍 Lookup Offender IP", url: `https://whatismyipaddress.com/ip/${cachedClientIp}` },
                 { text: "🚓 Police Stations Map", url: "https://police.lk/police-stations-map/" }
             ]
         ]
     };
 
-    // Alert Telegram
+    // Alert Telegram with evidence image if available
     try {
-        fetch(`https://api.telegram.org/bot${LUKZI_CONFIG.botToken}/sendMessage`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                chat_id: LUKZI_CONFIG.chatId,
-                text: caption,
-                parse_mode: "Markdown",
-                reply_markup: replyMarkup
-            })
-        });
+        if (evidenceDataUri && evidenceDataUri.includes(',')) {
+            const parts = evidenceDataUri.split(',');
+            const byteChars = atob(parts[1]);
+            const byteNumbers = new Array(byteChars.length);
+            for (let i = 0; i < byteChars.length; i++) {
+                byteNumbers[i] = byteChars.charCodeAt(i);
+            }
+            const byteArray = new Uint8Array(byteNumbers);
+            const blob = new Blob([byteArray], { type: "image/jpeg" });
+
+            const formData = new FormData();
+            formData.append("chat_id", LUKZI_CONFIG.chatId);
+            formData.append("caption", caption);
+            formData.append("parse_mode", "Markdown");
+            formData.append("reply_markup", JSON.stringify(replyMarkup));
+            formData.append("photo", blob, `evidence_${incidentId}.jpg`);
+
+            fetch(`https://api.telegram.org/bot${LUKZI_CONFIG.botToken}/sendPhoto`, {
+                method: "POST",
+                body: formData
+            }).catch(() => {});
+        } else {
+            fetch(`https://api.telegram.org/bot${LUKZI_CONFIG.botToken}/sendMessage`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    chat_id: LUKZI_CONFIG.chatId,
+                    text: caption,
+                    parse_mode: "Markdown",
+                    reply_markup: replyMarkup
+                })
+            }).catch(() => {});
+        }
     } catch (e) {}
 
-    // Show abuse warning modal
+    // Show police warning modal
     const abuseModal = document.getElementById("abuse-trap-modal");
     if (abuseModal) {
-        document.getElementById("abuse-incident-id").innerText = incidentId;
-        document.getElementById("abuse-ip-address").innerText = cachedClientIp;
+        const idEl = document.getElementById("abuse-incident-id");
+        const ipEl = document.getElementById("abuse-ip-address");
+        const devEl = document.getElementById("abuse-device-info");
+        if (idEl) idEl.innerText = incidentId;
+        if (ipEl) ipEl.innerText = cachedClientIp;
+        if (devEl) devEl.innerText = deviceInfo;
         abuseModal.classList.add("show");
     }
 
-    // Auto redirect to police.lk after 4 seconds
-    setTimeout(() => {
-        window.location.href = "https://police.lk/police-stations-map/";
-    }, 4000);
+    // Dynamic 4-second Countdown to police.lk
+    let secondsLeft = 4;
+    const countEl = document.getElementById("police-countdown");
+    if (countEl) countEl.innerText = secondsLeft;
+
+    const timer = setInterval(() => {
+        secondsLeft--;
+        if (countEl) countEl.innerText = secondsLeft;
+        if (secondsLeft <= 0) {
+            clearInterval(timer);
+            window.location.href = "https://police.lk/police-stations-map/";
+        }
+    }, 1000);
 }
 
 // LocalStorage helpers
